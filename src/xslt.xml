@@ -838,6 +838,17 @@ FINPOUR]]></egXML>
                     </list>
                 </div>
                 <div type="slide">
+                    <head>Bibliographie</head>
+                    <list>
+                        <item>Birnbaum J. David, « What can XPath do for me? ». &lt;<ref target="http://dh.obdurodon.org/introduction-xpath.xhtml">http://dh.obdurodon.org/introduction-xpath.xhtml</ref>&gt; </item>
+                        <item>Burnard Lou et Emmanuel Château-Dutier, L’édition critique des sources manuscrites avec la TEI. &lt;<ref target="https://github.com/tei-fr/formationEnc2017-10">https://github.com/tei-fr/formationEnc2017-10</ref>&gt;</item>
+                        <item>Château-Dutier Emmanuel, Introduction à l’édition critique avec la Text Encoding Initiative (TEI)</item>
+                        <item>Harold E. Rusty et Scott W. Means, XML en concentré : manuel de référence. Paris, France : O’Reilly, 2005. ISBN : 2-84177-353-1 </item>
+                        <item>Rahtz Sebastian, Working with TEI Stylesheets.</item>
+                        <item>W3C, « XML Path Language (XPath) 3.1 ». &lt;<ref target="https://www.w3.org/TR/xpath-31/">https://www.w3.org/TR/xpath-31/</ref>&gt; </item>
+                    </list>
+                </div>
+                <div type="slide">
                     <head>The End</head>
                     <p>&lt;merci/&gt;</p>
                 </div>
