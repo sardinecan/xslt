@@ -1,0 +1,15 @@
+.superscript {
+  vertical-align: super;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}

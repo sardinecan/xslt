@@ -1,0 +1,73 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>xsl:call-template</h1>
+         
+         <p>L’instruction <code>call-template</code> permet d’appeler un template par son nom :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template name='monTemplate'&gt;
+    &lt;!-- modèle --&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template match="/"&gt;
+    &lt;xsl:call-template name="monTemplate"/&gt;
+&lt;/xsl:template&gt;
+</code></pre>                    
+         
+         <p>Cette méthode est très utile, car elle permet de hiérarchiser les feuilles XSLT en
+            créant des templates avec un rôle bien défini.</p>
+         
+         <p>Par exemple, nous avons vu qu’avec l’instruction <code>&lt;xsl:result-document/&gt;</code> il était possible de générer un site composé de plusieurs pages à partir d’une unique
+            source XML.</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="/"&gt;
+    &lt;xsl:result-document href="index.html"&gt;
+        &lt;html&gt;&lt;!-- … --&gt;&lt;/html&gt;
+    &lt;/xsl:result-document&gt;
+    &lt;xsl:for-each select="./descendant::TEI"&gt;
+        &lt;xsl:result-document href="{./@xml:id}.html"&gt;
+            &lt;html&gt;&lt;!-- … --&gt;&lt;/html&gt;
+        &lt;/xsl:result-document&gt;
+    &lt;/xsl:for-each&gt;
+    &lt;xsl:result-document href="about.html"&gt;
+        &lt;html&gt;&lt;!-- … --&gt;&lt;/html&gt;
+    &lt;/xsl:result-document&gt;
+&lt;/xsl:template&gt;</code></pre>
+         
+         <p>Toutefois, cette méthode est très verbeuse : p. ex. on répète les éléments de structure
+            HTML alors qu’ils pourraient être partagés.</p>
+         
+         <p><code>call-template</code> agit comme <code>apply-templates</code> mais pour un template <em>nommé</em> :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="/"&gt;
+    &lt;xsl:call-template name="content"/&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template name="content"&gt;
+    &lt;p&gt;Hello World!&lt;/p&gt;
+&lt;/xsl:template&gt;</code></pre>
+         
+         <p>L’instruction <code>with-param</code> permet de passer des paramètres au modèle, qui les reçoit par l’intermédiaire de
+            <code>param</code> :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="/"&gt;
+    &lt;xsl:call-template name="content"&gt;
+        &lt;xsl:with-param name="name" select="'John'"/&gt;
+    &lt;/xsl:call-template&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template name="content"&gt;
+    &lt;xsl:param name="name"/&gt;
+    Bonjour &lt;xsl:value-of select="$name"/&gt; ! 🦖
+&lt;/xsl:template&gt;</code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

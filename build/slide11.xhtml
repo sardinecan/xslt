@@ -1,0 +1,41 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Anatomie d’une feuille de transformation</h1>
+         
+         <ul>
+            
+            <li>une feuille de style XSLT est un document XML </li>
+            
+            <li>l’élément racine est au choix <code>&lt;xsl:stylesheet/&gt;</code> ou <code>&lt;xs:transform/&gt;</code></li>
+            
+            <li>les éléments XSLT sont dans l’espace de nom <code>http://www.w3.org/1999/XSL/Transform</code></li>
+            
+            <li>Cet espace de nom est généralement associé au préfixe <code>xsl</code></li>
+            
+            <li>la version de la norme XSLT utilisée est indiquée sur l’élément racine avec l’attribut
+               <code>@version</code> (<code>1.0</code>, <code>2.0</code>, <code>3.0</code> (voire <code>4.0</code>))</li>
+            </ul>
+         
+         <p>les paramètres de sortie sont précisés avec l’élément <code>output</code> (facultatif).</p>
+         
+         <pre><code class="language-">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="xs"
+    version="2.0"&gt;
+    &lt;xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/&gt;
+    
+&lt;/xsl:stylesheet&gt;
+                    </code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

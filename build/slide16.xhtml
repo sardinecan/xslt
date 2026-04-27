@@ -1,0 +1,98 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Exercice 02 - XML vers (X)HTML</h1>
+         
+         <ul>
+            
+            <li>fichier à transformer : <code>02/will_AD95_0048.xml</code></li>
+            
+            <li>feuille de transformation : <code>02/tei2html.xsl</code></li>
+            </ul>
+         
+         <p><strong>Macro-structure HTML</strong></p>
+         
+         <ul>
+            
+            <li>Définissez une première règle pour le <strong>nœud document</strong> afin d’appliquer les modèles aux nœuds descendants.</li>
+            
+            <li>Créez une règle qui transforme l’élément <code>&lt;TEI/&gt;</code> en un élément HTML <code>&lt;html/&gt;</code> et appliquez les modèles.</li>
+            
+            <li>Ajoutez une règle pour l’élément <code>&lt;teiHeader/&gt;</code> afin qu’il soit transformé en un élément HTML <code>&lt;head/&gt;</code> contenant :
+               
+               <ul>
+                  
+                  <li>un élément HTML <code>&lt;meta charset="utf-8"/&gt;</code></li>
+                  
+                  <li>un élément HTML <code>&lt;title/&gt;</code> dont la valeur textuelle correspond au titre principal du document TEI.</li>
+                  </ul>
+               </li>
+            
+            <li>Créez une règle qui transforme l’élément TEI <code>&lt;body/&gt;</code> en un élément HTML <code>&lt;body/&gt;</code>, et appliquer les modèles aux nœuds descendants.</li>
+            
+            <li>Ajoutez une règles pour transformer les éléments TEI <code>&lt;div/&gt;</code> en élément HTML <code>&lt;section/&gt;</code>. L’attribut <code>@type</code> doit devenir une classe. N’oubliez pas d’appliquer les templates.</li>
+            
+            <li>Établissez des <em>templates</em> pour transformer les éléments suivants en paragraphes HTML <code>&lt;p/&gt;</code>:
+               
+               <ul>
+                  
+                  <li><code>head</code></li>
+                  
+                  <li><code>p</code></li>
+                  
+                  <li><code>dateline</code></li>
+                  
+                  <li><code>signed</code></li>
+                  </ul> 
+               <br />Pour les éléments <code>&lt;head/&gt;</code> et <code>&lt;dateline/&gt;</code>, ajoutez un <strong>attribut <code>@class</code></strong> dont la valeur correspond à celle de l’attribut TEI <code>@rend</code>.
+               </li>
+            </ul>
+         
+         <p><strong>Contenus</strong></p>
+         
+         <ul>
+            
+            <li>Créez une règle qui transforme les éléments <code>&lt;lb/&gt;</code> en éléments HTML <code>&lt;br/&gt;</code>.</li>
+            
+            <li>Ajoutez une règle afin que seuls les éléments <code>&lt;corr/&gt;</code> et <code>&lt;expan/&gt;</code> soient instanciés dans les éléments <code>&lt;choice/&gt;</code></li>
+            
+            <li>Créez une règle pour supprimer les nœuds <code>&lt;del/&gt;</code> et <code>&lt;add type='testatorComment'/&gt;</code> en sortie</li>
+            
+            <li>Créez une règle afin d’instancier les éléments <code>&lt;supplied/&gt;</code> entre crochets droits <code>[]</code></li>
+            
+            <li>À l’aide de la requête XPath <code>distinct-values(//hi/@rend)</code>, recherchez les valeurs uniques des attributs <code>@rend</code>. <br />Créez une règle pour chaque valeur de <code>hi/@rend</code> en utilisant un <code>test</code>.</li>
+            
+            <li>Ajoutez une règle pour les éléments <code>&lt;pb/&gt;</code> et créez une variable pour numéroter les changements de page. <br />En sortie, placez le numéro de page entre crochets <code>[]</code>.</li>
+            
+            <li>Ajoutez une règle pour les éléments <code>&lt;note/&gt;</code>. :
+               <ul>
+                  
+                  <li>créez une variable pour numéroter l’élément <code>note</code></li>
+                  
+                  <li>en sortie, placer le numéro de la note en exposant (balise HTML <code>&lt;sup/&gt;</code>)</li>
+               </ul>
+               </li>
+            
+            <li>Ajouter une règle modale pour les éléments <code>&lt;note/&gt;</code> (p. ex. <code>mode="footnote"</code>)
+               <ul>
+                  
+                  <li>numérotez les notes comme ci-dessus</li>
+                  
+                  <li>instanciez l’appel de note et le contenu de la note dans un élément <code>&lt;p/&gt;</code></li>
+                  
+                  <li>modifiez le modèle de l’élément <code>&lt;div/&gt;</code> afin d’appliquer la règle modale</li>
+               </ul>
+               </li>
+            </ul>
+         
+         
+         </main><script>hljs.highlightAll();</script></body>
+</html>

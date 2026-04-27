@@ -1,0 +1,44 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>xsl:attribute</h1>
+         
+         <p>Tout comme les éléments, plusieurs méthodes existent pour déclarer des attributs :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="ref"&gt;
+    &lt;a href="http://unlien.org"&gt;Un lien&lt;/a&gt;
+&lt;/xsl:template&gt;
+
+&lt;xsl:template match="ref"&gt;
+    &lt;xsl:element name="a"&gt;
+        &lt;xsl:attribute name="href"&gt;http://unlien.org&lt;/xsl:attribute&gt;
+        &lt;xsl:apply-templates/&gt;
+    &lt;/xsl:element&gt;
+&lt;/xsl:template&gt;</code></pre>
+         
+         <p>On peut également définir la valeur de l’attribut avec une expression XPath :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="ref"&gt;
+    &lt;a href="{ ./@target }"&gt;
+        &lt;xsl:apply-templates/&gt;
+    &lt;/a&gt;
+&lt;/xsl:template&gt;
+
+&lt;xsl:template match="ref"&gt;
+    &lt;xsl:element name="a"&gt;
+        &lt;xsl:attribute name="href" select="@target"/&gt;
+        &lt;xsl:apply-templates/&gt;
+    &lt;/xsl:element&gt;
+&lt;/xsl:template&gt;</code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

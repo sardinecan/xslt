@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:id="jd.entry.11681.01">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Title</title>
+                <respStmt>
+                    <resp>Rétroconversion Spip vers XML-TEI</resp>
+                    <persName>Josselin Morvan</persName>
+                </respStmt>
+                <respStmt>
+                    <resp>Validation des fichiers XML-TEI</resp>
+                    <persName>Élisa Barthélemy</persName>
+                    <persName>Hélène Hôte</persName>
+                </respStmt>
+                <respStmt>
+                    <resp>Transcription</resp>
+                    <persName>Mylène Attisme</persName>
+                </respStmt>
+                <respStmt>
+                    <resp>Contrôle</resp>
+                    <persName>Florence Naugrette</persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <p/>
+            </publicationStmt>
+            <sourceDesc>
+                <msDesc>
+                    <msIdentifier>
+                        <repository>BnF, Mss, NAF 16355, f. 91-93</repository>
+                    </msIdentifier>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <correspDesc>
+                <correspAction type="written">
+                    <persName>Juliette Drouet</persName>
+                    <date when="1844-04-29">29 avril 1844</date>
+                    <placeName>Paris</placeName>
+                </correspAction>
+                <correspAction type="received">
+                    <persName>Victor Hugo</persName>
+                </correspAction>
+            </correspDesc>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="letter">
+                <opener>
+                    <dateline rend="right">29 avril <supplied>1844</supplied>, lundi matin, 9 h.</dateline>
+                </opener>
+                <p>
+                    Bonjour mon Toto bien aimé, bonjour toi. Tu trouves toujours le moyen de me tourmenter et de me faire enrager outre mesure, et celui d’être le meilleur et le plus charmant des hommes. Ainsi, hier, tandis que je m’impatientais et que je t’accusais, tu t’occupais de moi et tu faisais tous tes efforts pour rendre service à cette pauvre M<hi rend="superscript">me</hi> <persName ref="#jd.notice.1274">Luthereau</persName> dans la personne de son mari. Je t’en remercie du fond du cœur, mon adoré, et je te demande pardon de mon injustice et de l’excès de mon amour qui me rend irritable, inquiète et méchante. Je voudrais me corriger mais je sens que cela n’est pas possible car il faudrait t’aimer moins. De deux maux, j’aime mieux encore le plus petit. Je GARDE mon amour et ma férocité. Je vais écrire à M<hi rend="superscript">me</hi> Luthereau pour lui dire de passer chez moi sans entrer dans plus de détails. Je serais bien contente si ces pauvres gens pouvaient avoir une pierre d’attente de ce côté-là<note type="footnote">À élucider.</note>. Mais tant que l’avis <hi rend="underline">officiel</hi> ne sera pas arrivé, je ne me livrerai à aucune joie. <lb/><term ref="#jd.glossaire.369">Jour</term> Toto, jour mon cher petit <hi rend="underline"><term ref="#jd.glossaire.376">o</term></hi>, je vous aime, vous êtes mon Toto adoré. Pensez à moi, plaignez-moi et aimez-moi. Je vais bien penser à vous et bien vous désirer et bien vous aimer. Trop même. Je baise vos chers petits pieds et je vous adore. Tâchez de venir un peu tout à l’heure.
+                </p>
+                <closer>
+                    <signed rend="right">Juliette</signed>
+                </closer>
+            </div>
+        </body>
+    </text>
+</TEI>

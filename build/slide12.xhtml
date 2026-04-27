@@ -1,0 +1,54 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Règles modèles <code>&lt;xsl:template/&gt;</code></h1>
+         
+         <p>Une feuille de transformation XSLT repose sur l’utilisation de <strong>règles modèles</strong> (<code>&lt;xsl:template/&gt;</code>). Toute règle modèle est composée d’un <strong>motif</strong> (<code>@match</code>) qui identifie les nœuds à transformer et d’un <strong>modèle</strong> constitué des instructions à appliquer lorsque le motif est trouvé dans l’arbre d’entrée.</p>
+         
+         <p>Le <strong>motif</strong> le plus simple est le nom d’un élément :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="ref"&gt;&lt;!-- @match : expression XPath --&gt;
+    &lt;!-- modèle : le contenu de xsl:template --&gt;
+    &lt;a href="{ @target }"&gt;&lt;xsl:apply-templates/&gt;&lt;/a&gt;
+&lt;/xsl:template&gt;
+</code></pre>
+         
+         <p>Les instructions sont définies par un ensemble d’éléments XSLT</p>                    
+         
+         <ul>
+            
+            <li><code>xsl:value-of</code> évalue le contenu textuel d’un nœud</li>
+            
+            <li><code>xsl:apply-templates</code> applique les règles en descendant en profondeur</li>
+            
+            <li><code>xsl:element</code> crée un nœud élément</li>
+            
+            <li><code>xsl:attribute</code> crée un nœud attribut</li>
+            
+            <li><code>xsl:text</code> crée un nœud texte</li>
+            
+            <li><code>xsl:if</code> test simple, instruction conditionnelle</li>
+            
+            <li><code>xsl:choose</code> test complet, série de tests exprimés par les sous-éléments <code>xsl:when</code> et <code>xsl:otherwise</code></li>
+            
+            <li><code>xsl:for-each</code> boucle, itération sur un séquence de nœuds</li>
+            
+            <li><code>xsl:for-each-group</code> boucle, itération non pas sur un ensemble de nœuds, mais sur des <strong>groupes</strong> de nœuds</li>
+            
+            <li><code>xsl:sort</code> tri d’une séquence de nœuds (utilisation avec <code>xsl:for-each</code> et <code>xsl:apply-templates</code></li>               
+            
+            <li><code>xsl:variable</code> déclaration d’une variable</li>
+            
+            <li><code>xsl:param</code> déclaration d’un paramètre</li>
+            </ul>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026Formation XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Copier <code>&lt;xsl:copy-of/&gt;</code> et <code>&lt;xsl:copy-of/&gt;</code></h1>
+         
+         <p>L'élément <code>&lt;xsl:copy/&gt;</code> créeune paire de balises (ouvrante et fermante) dont le nom est celui de l'élément
+            courant, mais ni les nœuds descendants, ni les attributs ne sont copiés.</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="ref"&gt;
+    &lt;xsl:copy&gt;&lt;xsl:apply-templates/&gt;&lt;/xsl:copy&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template match="emph"&gt;
+    &lt;em&gt;&lt;xsl:apply-templates/&gt;&lt;/em&gt;
+&lt;/xsl:template&gt;
+</code></pre>
+         
+         <p>Résultat :</p>
+         
+         <pre><code class="language-xml">
+&lt;ref&gt;The &lt;em&gt;XSLT&lt;/em&gt; Standard&lt;/ref&gt;
+</code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Les modes</h1>
+         
+         <p>Parfois, on a besoin d’appliquer plusieurs traitements à un même ensemble de nœuds.</p>
+         
+         <p>Par exemple pour une sortie HTML, on peut souhaiter appliquer deux traitements pour
+            les titres de chapitre :</p>
+         
+         <ul>
+            
+            <li> les placer dans des balises <code>&lt;h2/&gt;</code> pour le corps du document ; </li>
+            
+            <li> en faire des éléments de liste <code>&lt;li/&gt;</code> afin de produire automatiquement une table des matières. </li>
+            </ul>
+         
+         <p>Plusieurs solutions peuvent être envisagées avec XSLT, mais l’approche modale est
+            certainement la plus commode.</p>
+         
+         <p>On utilise l’attribut <code>@mode</code> des éléments <code>&lt;xsl:template/&gt;</code> et <code>&lt;xsl:apply-templates /&gt;</code> afin de définir plusieurs règles modèles et les appeler de manière distincte.</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="div[@type='chapter']/head"&gt;
+    &lt;h2&gt;&lt;xsl:apply-templates/&gt;&lt;/h2&gt;
+&lt;/xsl:template&gt;
+
+&lt;xsl:template match="div[@type='chapter']/head" mode="toc"&gt;
+    &lt;li&gt;&lt;xsl:apply-templates/&gt;&lt;/li&gt;
+&lt;/xsl:template&gt;
+</code></pre>
+         
+         <p>Et pour appeler les templates :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="TEI"&gt;
+    &lt;html&gt;
+        &lt;head&gt;&lt;title&gt;Le dernier jour d’un condamné&lt;/title&gt;&lt;/head&gt;
+        &lt;body&gt;
+            &lt;ul&gt;
+                &lt;xsl:apply-templates
+                    select="//div/head" mode="toc"/&gt;
+            &lt;/ul&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;
+&lt;/xsl:template&gt;</code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

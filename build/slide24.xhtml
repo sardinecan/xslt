@@ -1,0 +1,32 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>xsl:number</h1>
+         
+         <p>L’élément <code>&lt;xsl:number/&gt;</code> retourne un entier formaté. Il est souvent utilisé pour numéroter des nœuds :</p>
+         
+         <ul>
+            
+            <li><code>@count</code> : expression XPath indiquant les nœuds à compter </li>
+            
+            <li><code>@level</code> : défini le nombre de niveaux <code>"single"</code> (1, 2, 3, etc.) | <code>multiple</code> (I.1, I.2, etc.) | <code>"any"</code> (dépend de <code>@from</code>) </li>
+            
+            <li><code>@from</code> : nœud qui sert de point de départ à la numérotation </li>
+            
+            <li><code>@format</code> : format de numérotation <code>"1"</code>, <code>"I"</code>, <code>"i"</code>, <code>"a"</code>, <code>"A"</code>, etc. </li>
+            </ul>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="l"&gt;
+    &lt;xsl:number count="l" from="lg" level="single"/&gt;
+&lt;/xsl:template&gt;</code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

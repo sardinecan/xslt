@@ -1,0 +1,46 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Les règles intégrées</h1>
+         
+         <p>Quand aucun motif est trouvé pour un nœud, le processeur XSLT applique les règles
+            suivantes :</p>
+         
+         <ul>
+            
+            <li>pour les nœuds élément et document : il passe aux nœuds enfants</li>
+            
+            <li>pour les nœuds texte et attribut : il sort la valeur textuelle</li>
+            
+            <li>pour les nœuds commentaire et instruction de traitement : ils sont supprimés de l’arbre
+               de sortie</li>
+            </ul>
+         
+         <p>voir la feuille de transformation <code>exercices/01/defaut.xsl</code></p>
+         
+         <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="xs"
+    version="2.0"&gt;
+    
+    &lt;xsl:template match="* | /"&gt;
+        &lt;xsl:apply-templates/&gt;
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match="text() | @*"&gt;
+        &lt;xsl:value-of select="."/&gt;
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match="processing-instruction()|comment()"/&gt;
+&lt;/xsl:stylesheet&gt;</code></pre>
+         
+         <p><em>Il n’est aucunement nécessaire d’inclure ces instructions dans une feuille de transformation !</em></p>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

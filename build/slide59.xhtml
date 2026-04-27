@@ -1,0 +1,29 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026Formation XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Trier avec <code>&lt;xsl:sort/&gt;</code></h1>
+         
+         <pre><code class="language-xml">
+&lt;list&gt;
+    &lt;item&gt;c&lt;/item&gt;
+    &lt;item&gt;a&lt;/item&gt;
+    &lt;item&gt;b&lt;/item&gt;
+&lt;/list&gt;
+&lt;xsl:template match="list"&gt;
+    &lt;xsl:apply-templates select="item"&gt;
+        &lt;xsl:sort select="."/&gt;
+    &lt;/xsl:apply-templates&gt;
+&lt;/xsl:template&gt;
+</code></pre>
+         
+         <p>résultat : <code>abc</code></p>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

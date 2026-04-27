@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-stylesheet type="text/xsl" href="tei2slide.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>AHN 2026</title>
+                <title type="subtitle">XSLT</title>
+                <author>Josselin Morvan (université de Rouen Normandie)</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>Document nativement numérique</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Document nativement numérique</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="lesson">
+                <div type="slide" rend="titlePage">
+                    <head>Initiation au langage de transformation XSLT</head>
+                    <p>AHN 2026 - Josselin Morvan (université de Rouen Normandie)</p>
+                </div>
+                <div type="slide">
+                    <head>Contenu de la formation</head>
+                    <list>
+                        <item>Initiation à XPath (matinée)</item>
+                        <item>
+                            Initiation à XSLT (fin de matinée - après-midi)
+                            <list>
+                                <item>Programmation XSLT</item>
+                                <item>Les <emph>stylesheets</emph> de la TEI</item>
+                            </list>
+                        </item>
+                    </list>
+                    <p><hi rend="bold">Objectifs</hi> : acquérir les fondements du langage de programmation XSLT pour transformer des documents XML-TEI vers HTML pour la publication web.</p>
+                </div>
+                <div type="slide" rend="titlePage">
+                    <head>Seconde partie <lb/>XSLT</head>
+                </div>
+                <div type="slide">
+                    <head>XSL</head>
+                    <p>XSL : <emph>e<emph>X</emph>stensible <emph>S</emph>tylesheet <emph>L</emph>anguage</emph></p>
+                    <p>La spécification XSL a été publiée par le W3C en 1999, en même temps que le langage XPath.</p>
+                    <p>La norme XSL est composée en deux parties :</p>
+                    <list>
+                        <item>XSLT : <emph>e<emph>X</emph>stensible <emph>S</emph>tylesheet <emph>L</emph>anguage <emph>T</emph>ransformations</emph>, pour la transformation de documents XML vers d’autres formats ;</item>
+                        <item>XSL-FO : <emph>e<emph>X</emph>stensible <emph>S</emph>tylesheet <emph>L</emph>anguage <emph>F</emph>ormating <emph>O</emph>bject</emph>, pour formater, mettre en forme et créer des documents paginés à partir de documents XML.</item>
+                    </list>
+                    <p>La seconde version du langage a été publiée en 2007, en même temps que <hi rend="bold">XPath 2.0</hi>. Nous sommes actuellement à la version 4.0.</p>
+                </div>
+                <div type="slide">
+                    <head>XSLT dans les grandes lignes</head>
+                    <list>
+                        <item>XSLT est un langage de transformation pour les documents XML ;</item>
+                        <item>Il permet de produire en sortie d’autres documents XML, mais pas uniquement ! ((X)HTML, plein texte, JSON, CSV, etc.) ;</item>
+                        <item>Une feuille de transformations XSLT <hi rend="bold">est</hi> un document XML ;</item>
+                        <item>modulaire et extensible ;</item>
+                        <item>pas d’ordre de traitement.</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Transformation XSLT</head>
+                    <figure>
+                        <graphic url="https://www.oxygenxml.com/img/ls_xslt_transform.png"/>
+                    </figure>
+                    <list>
+                        <item>une feuille XSLT contient des règles modèles (<emph>templates</emph>)</item>
+                        <item>chaque règle est composée d’un <emph>motif</emph> (les nœuds à transformer) et un <emph>modèle</emph> (ce qu’on veut en faire)</item>
+                        <item>le processeur XSLT cherche les motifs dans un document XML donné en entrée</item>
+                        <item>si un motif est trouvé, alors le processeur écrit le modèle de cette règle dans l’arbre de destination</item>
+                        <item>en fin de processus, l'arbre de sortie est sérialisé dans un autre document XML ou dans un autre format (XML ou non)</item>
+                    </list>                    
+                </div>
+                <div type="slide">
+                    <head>Une première transformation</head>
+                    <p>Entrée :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[ <ref target="www.w3.org/TR/xslt-30/">The <emph>XSLT</emph> Standard</ref> ]]></egXML>
+                    <p>Sortie :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[ <a href="www.w3.org/TR/xslt-30/">The <em>XSLT</em> Standard</a> ]]></egXML>
+                    <p>XSLT :</p>
+                    <list>
+                        <item>S’il y a un élément <code>ref</code> alors il est transformé en élément HTML <code>a</code> ;</item>
+                        <item>S’il y a un attribut <code>@target</code> alors il est transformé en attribut HTML <code>href</code> ;</item>
+                        <item>S’il y a un élément <code>emph</code> alors il est transformé en élément HTML <code>em</code>.</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Avec XSLT</head>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0" version="2.0">
+    <xsl:template match="ref">
+        <a href="{ @target }"><xsl:apply-templates/></a>
+    </xsl:template>
+    <xsl:template match="emph">
+        <em><xsl:apply-templates/></em>
+    </xsl:template>
+</xsl:stylesheet>
+]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>Exercice 01a - première transformation</head>
+                    <list>
+                        <item>ouvrir OxygenXML</item>
+                        <item>configurer un scénario de transformation (cf. <ref target="https://dh.obdurodon.org/transformation-scenario.html"><emph>transformation scenario</emph></ref>)</item>
+                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
+                        <item>feuille de transformation : <code>01/hugo.xsl</code></item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Déroulé de la transformation</head>
+                    <list>
+                        <item>un arbre d’entrée est mis en mémoire à partir du document source</item>
+                        <item>le processeur XSLT lit les nœuds dans l’ordre (de haut en bas, de gauche à droite), en commençant par l’élément racine</item>
+                        <item>pour chaque nœud, il vérifie si une règle (<emph>template</emph>) existe <list>
+                            <item>si une règle existe, elle est appliquée</item>
+                            <item>si aucune ne correspond, il traite les nœuds fils,</item>
+                            <item>si aucun élément ne reste à traiter, il applique des instructions par défaut (imprime le contenu textuel)</item>
+                            <item>si plusieurs règles existent pour un même motif, des règles de priorité s’appliquent</item></list>
+                        </item>
+                        <item>l’ordre de déclaration des règles n’a pas d’importance</item>
+                        <item>un fichier de sortie est produit selon les règles de sérialisation indiquées dans la feuille de transformation</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Anatomie d’une feuille de transformation</head>
+                    <list>
+                        <item>une feuille de style XSLT est un document XML </item>
+                        <item>l’élément racine est au choix <code>&lt;xsl:stylesheet/&gt;</code> ou <code>&lt;xs:transform/&gt;</code></item>
+                        <item>les éléments XSLT sont dans l’espace de nom <code>http://www.w3.org/1999/XSL/Transform</code></item>
+                        <item>Cet espace de nom est généralement associé au préfixe <code>xsl</code></item>
+                        <item>la version de la norme XSLT utilisée est indiquée sur l’élément racine avec l’attribut <code>@version</code> (<code>1.0</code>, <code>2.0</code>, <code>3.0</code> (voire <code>4.0</code>))</item>
+                    </list>
+                    <p>les paramètres de sortie sont précisés avec l’élément <code>output</code> (facultatif).</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="xs"
+    version="2.0">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
+    
+</xsl:stylesheet>]]>
+                    </egXML>
+                </div>
+                
+                <div type="slide">
+                    <head>Règles modèles <code>&lt;xsl:template/&gt;</code></head>
+                    <p>Une feuille de transformation XSLT repose sur l’utilisation de <hi rend="bold">règles modèles</hi> (<code>&lt;xsl:template/&gt;</code>). Toute règle modèle est composée d’un <hi rend="bold">motif</hi> (<code>@match</code>) qui identifie les nœuds à transformer et d’un <hi rend="bold">modèle</hi> constitué des instructions à appliquer lorsque le motif est trouvé dans l’arbre d’entrée.</p>
+                    <p>Le <hi rend="bold">motif</hi> le plus simple est le nom d’un élément :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
+<xsl:template match="ref"><!-- @match : expression XPath -->
+    <!-- modèle : le contenu de xsl:template -->
+    <a href="{ @target }"><xsl:apply-templates/></a>
+</xsl:template>
+]]></egXML>
+                    <p>Les instructions sont définies par un ensemble d’éléments XSLT</p>                    
+                    <list>
+                        <item><code>xsl:value-of</code> évalue le contenu textuel d’un nœud</item>
+                        <item><code>xsl:apply-templates</code> applique les règles en descendant en profondeur</item>
+                        <item><code>xsl:element</code> crée un nœud élément</item>
+                        <item><code>xsl:attribute</code> crée un nœud attribut</item>
+                        <item><code>xsl:text</code> crée un nœud texte</item>
+                        <item><code>xsl:if</code> test simple, instruction conditionnelle</item>
+                        <item><code>xsl:choose</code> test complet, série de tests exprimés par les sous-éléments <code>xsl:when</code> et <code>xsl:otherwise</code></item>
+                        <item><code>xsl:for-each</code> boucle, itération sur un séquence de nœuds</item>
+                        <item><code>xsl:for-each-group</code> boucle, itération non pas sur un ensemble de nœuds, mais sur des <hi rend="bold">groupes</hi> de nœuds</item>
+                        <item><code>xsl:sort</code> tri d’une séquence de nœuds (utilisation avec <code>xsl:for-each</code> et <code>xsl:apply-templates</code></item>               
+                        <item><code>xsl:variable</code> déclaration d’une variable</item>
+                        <item><code>xsl:param</code> déclaration d’un paramètre</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Exercice 01b - règle vide</head>
+                    <list>
+                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
+                        <item>feuille de transformation : <code>01/vide.xsl</code></item>
+                    </list>
+                    <div type="details">
+                        <label>Que remarque-t-on ?</label>
+                        <list>
+                            <item>le résultat n’est pas un document XML</item>
+                            <item>les balises et les attributs ont été supprimés</item>
+                        </list>
+                    </div>
+                </div>
+                <div type="slide">
+                    <head>Les règles intégrées</head>
+                    <p>Quand aucun motif est trouvé pour un nœud, le processeur XSLT applique les règles suivantes :</p>
+                    <list>
+                        <item>pour les nœuds élément et document : il passe aux nœuds enfants</item>
+                        <item>pour les nœuds texte et attribut : il sort la valeur textuelle</item>
+                        <item>pour les nœuds commentaire et instruction de traitement : ils sont supprimés de l’arbre de sortie</item>
+                    </list>
+                    <p>voir la feuille de transformation <code>exercices/01/defaut.xsl</code></p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="xs"
+    version="2.0">
+    
+    <xsl:template match="* | /">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="text() | @*">
+        <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="processing-instruction()|comment()"/>
+</xsl:stylesheet>]]></egXML>
+                    <p><emph>Il n’est aucunement nécessaire d’inclure ces instructions dans une feuille de transformation !</emph></p>
+                </div>
+                <div type="slide">
+                    <head>Exercice 01c - copie à l’identique</head>
+                    <list>
+                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
+                        <item>feuille de transformation : <code>01/copie.xsl</code></item>
+                    </list>
+                    <!--<p>On n’utilise généralement cette feuille XSLT de copie comme une base de modification</p>-->
+                    <div type="details">
+                        <label>Comment fonctionne la copie ?</label>
+                        <list>
+                            <item>On définit une règle pour tous les nœuds <code>node() union @*</code> :<list>
+                                <item>node() : tous les nœuds sauf les attributs</item>
+                                <item>@* tous les nœuds attributs</item></list>
+                            </item>
+                            <item><code>xsl:copy</code> copie le nœud</item>
+                            <item><code>xsl:apply-templates</code> applique la même règle pour tous les nœuds fils</item>
+                            <item>elle adopte ainsi un fonctionnement recursif</item>
+                        </list>
+                    </div>
+                </div>
+                <div type="slide">
+                    <head>Exercice 02 - XML vers (X)HTML</head>
+                    <list>
+                        <item>fichier à transformer : <code>02/will_AD95_0048.xml</code></item>
+                        <item>feuille de transformation : <code>02/tei2html.xsl</code></item>
+                    </list>
+                    <p><hi rend="bold">Macro-structure HTML</hi></p>
+                    <list>
+                        <item>Définissez une première règle pour le <hi rend="bold">nœud document</hi> afin d’appliquer les modèles aux nœuds descendants.</item>
+                        <item>Créez une règle qui transforme l’élément <code>&lt;TEI/&gt;</code> en un élément HTML <code>&lt;html/&gt;</code> et appliquez les modèles.</item>
+                        <item>Ajoutez une règle pour l’élément <code>&lt;teiHeader/&gt;</code> afin qu’il soit transformé en un élément HTML <code>&lt;head/&gt;</code> contenant :
+                            <list>
+                                <item>un élément HTML <code>&lt;meta charset="utf-8"/&gt;</code></item>
+                                <item>un élément HTML <code>&lt;title/&gt;</code> dont la valeur textuelle correspond au titre principal du document TEI.</item>
+                            </list>
+                        </item>
+                        <item>Créez une règle qui transforme l’élément TEI <code>&lt;body/&gt;</code> en un élément HTML <code>&lt;body/&gt;</code>, et appliquer les modèles aux nœuds descendants.</item>
+                        <item>Ajoutez une règles pour transformer les éléments TEI <code>&lt;div/&gt;</code> en élément HTML <code>&lt;section/&gt;</code>. L’attribut <code>@type</code> doit devenir une classe. N’oubliez pas d’appliquer les templates.</item>
+                        <item>Établissez des <emph>templates</emph> pour transformer les éléments suivants en paragraphes HTML <code>&lt;p/&gt;</code>:
+                            <list>
+                                <item><code>head</code></item>
+                                <item><code>p</code></item>
+                                <item><code>dateline</code></item>
+                                <item><code>signed</code></item>
+                            </list> 
+                            <lb/>Pour les éléments <code>&lt;head/&gt;</code> et <code>&lt;dateline/&gt;</code>, ajoutez un <hi rend="bold">attribut <code>@class</code></hi> dont la valeur correspond à celle de l’attribut TEI <code>@rend</code>.
+                        </item>
+                    </list>
+                    <p><hi rend="bold">Contenus</hi></p>
+                    <list>
+                        <item>Créez une règle qui transforme les éléments <code>&lt;lb/&gt;</code> en éléments HTML <code>&lt;br/&gt;</code>.</item>
+                        <item>Ajoutez une règle afin que seuls les éléments <code>&lt;corr/&gt;</code> et <code>&lt;expan/&gt;</code> soient instanciés dans les éléments <code>&lt;choice/&gt;</code></item>
+                        <item>Créez une règle pour supprimer les nœuds <code>&lt;del/&gt;</code> et <code>&lt;add type='testatorComment'/&gt;</code> en sortie</item>
+                        <item>Créez une règle afin d’instancier les éléments <code>&lt;supplied/&gt;</code> entre crochets droits <code>[]</code></item>
+                        <item>À l’aide de la requête XPath <code>distinct-values(//hi/@rend)</code>, recherchez les valeurs uniques des attributs <code>@rend</code>. <lb/>Créez une règle pour chaque valeur de <code>hi/@rend</code> en utilisant un <code>test</code>.</item>
+                        <item>Ajoutez une règle pour les éléments <code>&lt;pb/&gt;</code> et créez une variable pour numéroter les changements de page. <lb/>En sortie, placez le numéro de page entre crochets <code>[]</code>.</item>
+                        <item>Ajoutez une règle pour les éléments <code>&lt;note/&gt;</code>. :<list>
+                            <item>créez une variable pour numéroter l’élément <code>note</code></item>
+                            <item>en sortie, placer le numéro de la note en exposant (balise HTML <code>&lt;sup/&gt;</code>)</item></list>
+                        </item>
+                        <item>Ajouter une règle modale pour les éléments <code>&lt;note/&gt;</code> (p. ex. <code>mode="footnote"</code>)<list>
+                            <item>numérotez les notes comme ci-dessus</item>
+                            <item>instanciez l’appel de note et le contenu de la note dans un élément <code>&lt;p/&gt;</code></item>
+                            <item>modifiez le modèle de l’élément <code>&lt;div/&gt;</code> afin d’appliquer la règle modale</item></list>
+                        </item>
+                    </list>
+                    <!--<p><hi rend="bold">templates nommées - xsl:result-document</hi></p>
+                    <list>
+                        <item>Créez un template <emph>nommé</emph> <code>html</code> contenant une structure HTML classique (<code>html&gt;head+body</code>) <list>
+                            <item>dans l’élément <code>&lt;head/&gt;</code>, placez un élément <code>&lt;meta charset="utf-8"/&gt;</code> pour l’encodage des caractères</item>
+                            <item>l’élément HTML <code>title</code> doit prendre la valeur du titre principal dans le document TEI (voir règle déjà existante pour le <code>teiHeader</code>). <emph>NB. Pensez à utiliser un chemin absolu</emph></item>
+                            <item>dans le corps de la page HTML ajoutez une navigation composée d’une liste de 3 liens : <list>
+                                <item>Accueil : <code>index.html</code></item>
+                                <item>Testament : <code>testament.html</code></item>
+                                <item>Codicille : <code>codicille.html</code></item></list>
+                            </item>
+                            <item>supprimez les règles déjà existantes pour les éléments <code>TEI</code>, <code>teiHeader</code> et <code>body</code></item></list>
+                        </item>
+                        <item>ajoutez un paramètre <code>content</code> au template <code>html</code> ; <lb/>appliquez ce paramètre dans le <code>&lt;body/&gt;</code></item>
+                        <item>Modifiez règle du nœud document : <list>
+                            <item>supprimez le modèle existant ;</item>
+                            <item>ajoutez une première instruction <code>result-document</code> afin de créer un fichier <code>index.html</code> <list>
+                                <item>appelez le template <code>html</code> en lui passant comme paramètre <code>content</code> l’élément <code>abstract</code></item></list>
+                            </item>
+                            <item>effectuez une transformation (pensez à indiquer à Oxygen un dossier de sortie)</item>
+                        </list>
+                        </item>
+                        <item>Répétez l’opération pour le testament (<code>testament.html</code> ; <code>content</code>  : <code>&lt;div type="will"/&gt;</code>) et le codicille (<code>condicille.html</code> ; <code>content</code> : <code>&lt;div type="codicil"</code>)</item>
+                    </list>
+                    <list>
+                        <item>En utilisant des tests et boucles simplifiez et automatisez le traitements des éléments TEI <code>div</code>, afin de ne pas avoir à répéter manuellement les instructions <code>result-document</code>.</item>
+                        <item>Faites de même avec la navigation.</item>
+                    </list>-->
+                    <!--<p>On n’utilise généralement cette feuille XSLT de copie comme une base de modification</p>-->
+                </div>
+                <div type="slide">
+                    <head>xsl:apply-templates</head>    
+                    <p>La balise <code>&lt;xsl:apply-templates/&gt;</code> signifie « applique les autres règles modèles au contenu de l’élément courant ».</p>
+                    <p>S’il n’y a pas de règle modèle dont le <hi rend="bold">motif</hi> correspond au(x) nœud(s), une règle modèle intégrée est utilisée : elle retourne la valeur textuelle du nœud.</p>
+                    <p>Par défaut, l’instruction <code>&lt;xsl:apply-templates/&gt;</code> examine, dans l’ordre, les enfants du nœud contextuel. Cependant, il est possible de modifier ce comportement avec l’attribut <code>@select</code>. Il permet d’indiquer au processeur quel(s) autre(s) nœud(s) doi(ven)t être traité(s).</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
+<!-- fragment à transformer
+<ref target="www.w3.org/TR/xslt-30/">The <emph>XSLT</emph> Standard</ref>
+-->
+
+<xsl:template match="ref">
+    <xsl:apply-templates select="emph"/>
+</xsl:template>
+<xsl:template match="emph">
+    <em><xsl:apply-templates/></em>
+</xsl:template>
+]]></egXML>
+                    <p>résultat : <code>&lt;em&gt;XSLT&lt;/em&gt;</code></p>
+                </div>
+                <div type="slide">
+                    <head><emph>literal data characters</emph></head>
+                    <p>Aucune obligation cependant d’appliquer des <emph>templates</emph> :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
+<!-- fragment à transformer
+<ref target="www.w3.org/TR/xslt-30/">The <emph>XSLT</emph> Standard</ref>
+-->
+
+<xsl:template match="ref">
+    XML
+</xsl:template>
+]]></egXML>
+                    <p>Le contenu de l’élément <code>&lt;ref/&gt;</code> est remplacé par <code>"XML"</code> :</p>
+                    <list>
+                        <item>le texte et l’élément <code>&lt;emph/&gt;</code> sont ignorés</item>
+                    </list>
+                    <p>Implicitement, on a demandé au processeur XSLT de ne pas descendre plus loin dans l’arborescence du nœud <code>&lt;ref/&gt;</code> en donnant l’instruction d’imprimer <code>"XML"</code>.</p>
+                </div>
+                <div type="slide">
+                    <head>xsl:element</head>
+                    <p>Bien évidemment, on peut aussi ajouter des nœuds en sortie (<emph>literal result elements</emph>)</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0" version="2.0">
+    <xsl:template match="ref">
+        <a>XML</a>
+    </xsl:template>
+</xsl:stylesheet>]]></egXML>
+                    <p>Le résultat en sortie sera alors : <code>&lt;a&gt;XML&lt;/a&gt;</code></p>
+                    <p>Mais on peut également déclarer un élément directement :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
+<xsl:template match="ref">
+    <a><xsl:apply-templates/></a>
+</xsl:template>
+<xsl:template match="ref">
+    <xsl:element name="a"><xsl:apply-templates/></xsl:element>
+</xsl:template>
+]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:attribute</head>
+                    <p>Tout comme les éléments, plusieurs méthodes existent pour déclarer des attributs :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="ref">
+    <a href="http://unlien.org">Un lien</a>
+</xsl:template>
+
+<xsl:template match="ref">
+    <xsl:element name="a">
+        <xsl:attribute name="href">http://unlien.org</xsl:attribute>
+        <xsl:apply-templates/>
+    </xsl:element>
+</xsl:template>]]></egXML>
+                    <p>On peut également définir la valeur de l’attribut avec une expression XPath :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="ref">
+    <a href="{ ./@target }">
+        <xsl:apply-templates/>
+    </a>
+</xsl:template>
+
+<xsl:template match="ref">
+    <xsl:element name="a">
+        <xsl:attribute name="href" select="@target"/>
+        <xsl:apply-templates/>
+    </xsl:element>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:value-of</head>
+                    <p>Lorsque l’on souhaite uniquement accéder à la valeur textuelle d’un nœud, on utilise l’élément <code>&lt;xsl:value-of /&gt;</code>. La valeur textuelle d’un nœud correspond au contenu d’un élément une fois que toutes les balises ont été retirées.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="ref">
+    <xsl:value-of select="."/>
+</xsl:template>]]></egXML>
+                    <p>résultat : <code>The XSLT Standard</code></p>
+                </div>
+                <div type="slide">
+                    <head>Les modes</head>
+                    <p>Parfois, on a besoin d’appliquer plusieurs traitements à un même ensemble de nœuds.</p>
+                    <p>Par exemple pour une sortie HTML, on peut souhaiter appliquer deux traitements pour les titres de chapitre :</p>
+                    <list>
+                        <item> les placer dans des balises <code>&lt;h2/&gt;</code> pour le corps du document ; </item>
+                        <item> en faire des éléments de liste <code>&lt;li/&gt;</code> afin de produire automatiquement une table des matières. </item>
+                    </list>
+                    <p>Plusieurs solutions peuvent être envisagées avec XSLT, mais l’approche modale est certainement la plus commode.</p>
+                    <p>On utilise l’attribut <code>@mode</code> des éléments <code>&lt;xsl:template/&gt;</code> et <code>&lt;xsl:apply-templates /&gt;</code> afin de définir plusieurs règles modèles et les appeler de manière distincte.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
+<xsl:template match="div[@type='chapter']/head">
+    <h2><xsl:apply-templates/></h2>
+</xsl:template>
+
+<xsl:template match="div[@type='chapter']/head" mode="toc">
+    <li><xsl:apply-templates/></li>
+</xsl:template>
+]]></egXML>
+                    <p>Et pour appeler les templates :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="TEI">
+    <html>
+        <head><title>Le dernier jour d’un condamné</title></head>
+        <body>
+            <ul>
+                <xsl:apply-templates
+                    select="//div/head" mode="toc"/>
+            </ul>
+            <xsl:apply-templates/>
+        </body>
+    </html>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:variable</head>
+                    <p>Une variables est un espace mémoire <hi rend="bold">nommé</hi> dont la valeur peut être de n’importe quel type :</p>
+                    <list>
+                        <item>chaîne de caractères</item>
+                        <item>nombre</item>
+                        <item>ensemble de nœuds</item>
+                    </list>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:variable name="id" select="@xml:id"/>
+
+<xsl:variable name="var">Hello World</xsl:variable>]]></egXML>
+                    <p>Pour appeler une variable, on utilise une expression de la forme <code>$nomVariable</code>.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="div">
+    <xsl:variable name="id" select="@xml:id"/>
+    <section id="{ $id }">
+        <xsl:apply-template/>
+    </section>
+</xsl:template>]]></egXML>
+                    <p>Les variables disposent d’une portée. Cela signifie qu’elles peuvent être appelées uniquement dans le contexte dans lequel elles ont été définies.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:variable name="msg" select="'Hello World!'">
+<xsl:template match="div">
+    <xsl:variable name="id" select="@xml:id"/>
+    <section id="{ $id }">
+        <xsl:apply-template/>
+    </section>
+</xsl:template>
+<xsl:template match="p">
+<!-- impossible ici d'appeler $id, mais on peut appeler $msg-->
+<xsl:value-of select="$msg">
+<xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:number</head>
+                    <p>L’élément <code>&lt;xsl:number/&gt;</code> retourne un entier formaté. Il est souvent utilisé pour numéroter des nœuds :</p>
+                    <list>
+                        <item><code>@count</code> : expression XPath indiquant les nœuds à compter </item>
+                        <item><code>@level</code> : défini le nombre de niveaux <code>"single"</code> (1, 2, 3, etc.) | <quote><code>multiple</code></quote> (I.1, I.2, etc.) | <code>"any"</code> (dépend de <code>@from</code>) </item>
+                        <item><code>@from</code> : nœud qui sert de point de départ à la numérotation </item>
+                        <item><code>@format</code> : format de numérotation <code>"1"</code>, <code>"I"</code>, <code>"i"</code>, <code>"a"</code>, <code>"A"</code>, etc. </item>
+                    </list>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="l">
+    <xsl:number count="l" from="lg" level="single"/>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>Les tests</head>
+                    <p>Les tests correspondent à une instruction conditionnelle. C’est-à-dire que l’on va tester une ou plusieurs conditions et appliquer des instructions différentes suivant le résultat du test.</p>
+                    <p>Le tests font partie des structures élémentaires en algorithmique.</p>
+                    <p>Il peuvent prendre exactement 2 formes : la forme <emph>simple</emph> et la forme <emph>complète</emph>.</p>
+                </div>
+                <div type="slide">
+                    <head>xsl:if</head>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[si booléen alors
+    instruction
+finsi]]></egXML>
+                    <p>La machine examine le booléen :</p>
+                    <list>
+                        <item>si la condition est remplie (le booléen a pour valeur <code>VRAI</code>), elle exécute les instructions ;</item>
+                        <item>si la condition n’est pas remplie (le booléen a pour valeur <code>FAUX</code>), elle passe directement aux instructions qui suivent <code>finsi</code>.</item>
+                    </list>
+                    <p>En XSLT, on dispose de l’élément <code>&lt;xsl:if/&gt;</code> :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:if test="expression_booléenne">
+   <!-- Mon modèle a appliquer si la condition est vraie -->
+</xsl:if>]]></egXML>
+                    <p>Le modèle contenu dans <code>&lt;xsl:if/&gt;</code> est instancié <hi rend="bold">si et seulement si</hi> l’expression XPath est vraie.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="p">
+    <p>
+        <xsl:if test="@rend">
+            <xsl:attribute name="class" select="@rend"/>
+        </xsl:if>
+        <xsl:apply-templates/>
+    </p>
+</xsl:template>]]></egXML>
+                    <p>Si la balise <code>&lt;p/&gt;</code> dispose d’un attribut <code>@rend</code>, alors on ajoute en sortie un attribut <code>@class</code> ayant pour valeur celle de <code>@rend</code>.</p>
+                </div>
+                <div type="slide">
+                    <head>xsl:choose</head>
+                    <p>Les tests complets :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[si booléen alors
+    instruction 1
+sinon
+    instruction 2
+finsi]]></egXML>
+                    <list>
+                        <item>si le booléen a pour valeur <code>VRAI</code>, l’instruction 1 est exécutée ;</item>
+                        <item>si la booléen a pour valeur <code>FAUX</code>, l’instruction 2 est exécutée.</item>
+                    </list>
+                    <p>En réalité, la première forme correspond au cas de figure où l’une des deux <quote>branches</quote> est vide. Plutôt que d’indiquer à la machine de ne rien faire, on n’écrit rien.</p>
+                    <p>Pour effectuer des tests complets en XSLT, on utilise l’élément <code>&lt;xsl:choose/&gt;</code>.</p>
+                    <p>L’élément <code>&lt;xsl:choose/&gt;</code> contient :</p>
+                    <list>
+                        <item>1 ou n <code>&lt;xsl:when/&gt;</code></item>
+                        <item>0 ou 1 <code>&lt;xsl:otherwise/&gt;</code></item>
+                    </list>
+                    <p>Les éléments <code>&lt;xsl:when/&gt;</code> disposent d’un attribut <code>@test</code>. Le premier qui voit son test vérifié est exécuté.</p>
+                    <p>Si aucun test n’est vérifié mais qu’une instruction <code>&lt;xsl:otherwise/&gt;</code> est présente, alors c’est cette dernière qui sera exécutée.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="head">
+    <xsl:choose>
+        <xsl:when test="parent::div[@type = 'book']">
+            <h1><xsl:apply-templates/></h1>
+        </xsl:when>
+        <xsl:when test="parent::div[@type = 'chapter']">
+            <h2><xsl:apply-templates/></h2>
+        </xsl:when>
+        <xsl:otherwise>
+            <h3><xsl:apply-templates/></h3>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>Les boucles</head>
+                    <p>Les boucles font également partie des structures élémentaires en algorithmique. Elles sont d’ailleurs propre à la programmation et n’existent pas ailleurs.</p>
+                    <p>Elles permettent d’exécuter un ensemble d’instructions de manière répétée. On parle aussi de <hi rend="bold">structures itératives</hi>.</p>
+                    <p>Il en existe 2 types :</p>
+                    <list>
+                        <item>les boucles <code>while</code> (« tant que » avec la variante <code>do…while</code> « faire…tant que »)</item>
+                        <item>les bouches <code>for</code> (« pour »)</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Les boucles <code>while</code></head>
+                    <p>Les boucles <code>while</code> sont utilisées lorsqu’on ne peut pas déterminer à l’avance le nombre d’itérations nécessaires :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[TANTQUE <expression booléenne> FAIRE
+    instruction
+    relance
+FINTANTQUE
+]]></egXML>
+
+                </div>
+                <div type="slide">
+                    <head>Les boucles <code>for</code></head>
+                    <p>À l’inverse, les boucles <code>for</code> sont utilisées pour appliquer des traitements aux éléments d’un ensemble dont on peut connaitre à l’avance la quantité.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[POUR compteur <- valeur initiale à valeur finale (PAS valeur du pas)
+    instruction
+FINPOUR]]></egXML>
+
+                </div>
+                <div type="slide">
+                    <head>Les boucles et XSLT</head>
+                    <p>XSLT est un langage de programmation <emph>fonctionnel</emph>, et en tant que tel, il diffère des langages de programmation <emph>procéduraux</emph>.</p>
+                    <p>Cet approche <emph>fonctionnelle</emph> permet bien souvent de se passer des boucles en utilisant simplement des règles modèles ; mais voyons tout de même ce que permet de faire l’élément <code>&lt;xsl:for-each/&gt;</code>.</p>
+                </div>
+                <div type="slide">
+                    <head>xsl:for-each</head>
+                    <p><code>&lt;xsl:for-each/&gt;</code> permet de répéter une instruction sur une séquence d’items identifiés par l’attribut <code>@select</code>.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="list">
+   <ul>
+      <xsl:for-each select="item">
+         <li><xsl:apply-templates select="."/></li>
+      </xsl:for-each>
+   </ul>
+</xsl:template>]]></egXML>
+                    <p>Et avec une approche fonctionnelle :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="list">
+    <ul>
+        <xsl:apply-templates/>
+    </ul>
+</xsl:template>
+
+<xsl:template match="item">
+    <li>
+        <xsl:apply-templates/>
+    </li>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>Espace de nom XPath par défaut</head>
+                    <p>Pour déclarer un espace de nom XPath par défaut, on utilise l’attribut <code>@xpath-default-namespace</code>. Il n’est alors pas nécessaire de préfixer les expressions XPath avec <code>*:</code> (ou <code>tei:</code> si utilisation de <code>xmlns:tei</code>)</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xpath-default-namespace="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="xs" version="2.0">
+</xsl:stylesheet>]]></egXML>
+
+                </div>
+                <div type="slide">
+                    <head>xsl:output</head>
+                    <p>L’élément <code>&lt;xsl:output/&gt;</code> permet de configurer les paramètres de sortie :</p>
+                    <list>
+                        <item><code>@method</code> : format de sortie (<code>"xml"</code> par défaut | <code>"html"</code> | <code>"xhtml"</code> | <code>"text"</code> | <code>"json"</code> ) </item>
+                        <item><code>@encoding</code> : encodage des caractères (<code>"UFT-8"</code>) </item>
+                        <item><code>@indent</code> : règle d’indentation (<code>"true"</code> | <code>"false"</code> | <code>"1"</code> | <code>"0"</code>) </item>
+                    </list>
+                    <p><ref target="https://www.saxonica.com/html/documentation12/xsl-elements/output.html">Liste des autres paramètres</ref></p>
+
+                </div>
+                <div type="slide">
+                    <head>xsl:result-document</head>
+                    <p>L’élément <code>&lt;xsl:result-document/&gt;</code> est utilisé pour diriger la sortie vers une destination secondaire, par exemple un fichier, un mail, une URI, etc.</p>
+                    <p>Il est très intéressant pour produire plusieurs fichiers automatiquement à partir d’une même source.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="div[@type='chapter']">
+    <xsl:result-document href="{./@xml:id}.html" method="xhtml">
+        <html>
+            <head><xsl:value-of select="head"/></head>
+            <body>
+                <xsl:apply-templates/>
+            </body>
+        </html>
+        <xsl:apply-templates/>
+    </xsl:result-document>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:call-template</head>
+                    <p>L’instruction <code>call-template</code> permet d’appeler un template par son nom :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template name='monTemplate'>
+    <!-- modèle -->
+</xsl:template>
+<xsl:template match="/">
+    <xsl:call-template name="monTemplate"/>
+</xsl:template>
+]]></egXML>                    
+                    <p>Cette méthode est très utile, car elle permet de hiérarchiser les feuilles XSLT en créant des templates avec un rôle bien défini.</p>
+                    <p>Par exemple, nous avons vu qu’avec l’instruction <code>&lt;xsl:result-document/&gt;</code> il était possible de générer un site composé de plusieurs pages à partir d’une unique source XML.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="/">
+    <xsl:result-document href="index.html">
+        <html><!-- … --></html>
+    </xsl:result-document>
+    <xsl:for-each select="./descendant::TEI">
+        <xsl:result-document href="{./@xml:id}.html">
+            <html><!-- … --></html>
+        </xsl:result-document>
+    </xsl:for-each>
+    <xsl:result-document href="about.html">
+        <html><!-- … --></html>
+    </xsl:result-document>
+</xsl:template>]]></egXML>
+                    <p>Toutefois, cette méthode est très verbeuse : p. ex. on répète les éléments de structure HTML alors qu’ils pourraient être partagés.</p>
+                    <p><code>call-template</code> agit comme <code>apply-templates</code> mais pour un template <emph>nommé</emph> :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="/">
+    <xsl:call-template name="content"/>
+</xsl:template>
+<xsl:template name="content">
+    <p>Hello World!</p>
+</xsl:template>]]></egXML>
+                    <p>L’instruction <code>with-param</code> permet de passer des paramètres au modèle, qui les reçoit par l’intermédiaire de <code>param</code> :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="/">
+    <xsl:call-template name="content">
+        <xsl:with-param name="name" select="'John'"/>
+    </xsl:call-template>
+</xsl:template>
+<xsl:template name="content">
+    <xsl:param name="name"/>
+    Bonjour <xsl:value-of select="$name"/> ! 🦖
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:copy-of et xsl:copy</head>
+                    <p>L’élément <code>&lt;xsl:copy-of/&gt;</code> permet d’ajouter dans l’arbre de sortie un élément de l’arbre d’entrée, sans le modifier.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="ref">
+    <a href="{ ./@target }"><xsl:apply-templates/></a>
+    <xsl:copy-of select="."/>
+</xsl:template>
+<xsl:template match="emph">
+    <em><xsl:apply-templates/></em>
+</xsl:template>]]></egXML>
+                    <p>Résultat :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<a href="www.w3.org/TR/xslt-30/">The <em>XSLT</em> Standard</a>
+<ref target="www.w3.org/TR/xslt-30/">The <emph>XSLT</emph> Standard</ref>]]></egXML>
+                    <p>L'élément <code>&lt;xsl:copy/&gt;</code> crée une paire de balises (ouvrante et fermante) dont le nom est celui de l'élément courant, mais ni les nœuds descendants, ni les attributs ne sont copiés.</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="ref">
+    <xsl:copy><xsl:apply-templates/></xsl:copy>
+</xsl:template>
+<xsl:template match="emph">
+    <em><xsl:apply-templates/></em>
+</xsl:template>]]></egXML>
+                    <p>Résultat :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<ref>The <em>XSLT</em> Standard</ref>]]></egXML>
+                    <p>La copie intégrale :</p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<xsl:template match="node() | @*">
+    <xsl:copy>
+        <xsl:apply-templates match="node() | @*"/>
+    </xsl:copy>
+</xsl:template>]]></egXML>
+                </div>
+                <div type="slide">
+                    <head>xsl:sort</head>
+                    <p>L’instruction <code>&lt;xsl:sort/&gt;</code> permet de trier des nœuds afin, par exemple de les ordonner alphabétiquement.</p>
+                    <p>Il s’utilise comme enfant des éléments <code>&lt;xsl:apply-templates/&gt;</code> et <code>&lt;xsl:for-each/&gt;</code>.</p>
+                    <list>
+                        <item> l’attribut <code>@select</code> correspond à la clé de tri ; </item>
+                        <item> l’attribut <code>@order</code> définie le sens du tri (ascendant ou descendant) </item>
+                        <item> l’attribut <code>@data-type</code> permet de préciser si l’on souhaite un tri alphabétique ou numérique </item>
+                    </list>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
+<![CDATA[<list>
+    <item>c</item>
+    <item>a</item>
+    <item>b</item>
+</list>
+<xsl:template match="list">
+    <xsl:apply-templates select="item">
+        <xsl:sort select="."/>
+    </xsl:apply-templates>
+</xsl:template>]]></egXML>
+                    <p>résultat : <code>abc</code></p>
+                </div>
+                <div type="slide">
+                    <head>xsl:for-each-group</head>
+                    <p>L’instruction <code>&lt;xsl:for-each-group/&gt;</code> permet d’itérer non pas sur un ensemble de nœuds, mais sur des <hi rend="bold">groupes</hi> de nœuds.</p>
+                    <list>
+                        <item>l’attribut <code>@select</code> identifie les nœuds à grouper ; </item>
+                        <item>les attributs <code>@group-by</code>, <code>@group-adjacent</code>, <code>@group-starting-with</code> et <code>@group-ending-with</code> indiquent comment les grouper. </item>
+                        <item>la fonction <code>current-groupin-key()</code> retourne la clé de regroupement (si <code>@group-by</code>) ; </item>
+                        <item>la fonction <code>current-group()</code> retourne le groupe courant. </item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Exercice 03 - À vous créer un programme XSLT !</head>
+                    <list>
+                        <item>fichier à transformer : <code>03/jd116581.xml</code></item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Les stylesheets de la TEI</head>
+                    <p>Les Stylesheets de la TEI sont une bibliothèque XSLT/XSL-FO développée par Sebastian Rahtz et maintenue par le Consortium TEI pour convertir des documents TEI vers de nombreux formats (XHTML, LaTeX, PDF, EPUB, DOCX, etc.) et inversement !</p>
+                    <p><hi rend="bold">Intérêts</hi></p>
+                    <list>
+                        <item>gain de temps pour les transformations courantes</item>
+                        <item>bonne couverture des usages éditoriaux standards</item>
+                        <item>paramétrage riche sans devoir tout programmer</item>
+                    </list>
+                    <p><hi rend="bold">Limites</hi></p>
+                    <list>
+                        <item>tous les éléments/attributs TEI ne sont pas traités</item>
+                        <item>une personnalisation XSLT devient vite nécessaire pour les projets éditoriaux avancés</item>
+                    </list>
+                    <p>Les <emph>Stylesheets</emph> sont distribuées sous plusieurs formes :</p>
+                    <list>
+                        <item><ref target="https://github.com/TEIC/Stylesheets">Repo Github</ref>, pour une installation locale et une utilisation en ligne de commande</item>
+                        <item>Paquet Debian</item>
+                        <item>Framework OxygenXML (installé par défaut et accessible dans <code>oxygen XML editor/frameworks/tei/xml/tei/stylesheet</code>)</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Exercice 04a - TEI P5 XHTML</head>
+                    <list>
+                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
+                        <item>scénario de transformation : <emph>TEI P5 XHTML</emph></item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Exercice 04b - TEI P5 XHTML avec paramètres</head>
+                    <list>
+                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
+                        <item>éditez le scénario précédent (Oxygen vous proposera de le dupliquer)</item>
+                        <item>dans <quote>Paramètres</quote>, modifiez <code>numberHeadings</code> pour désactiver numérotation des sections</item>
+                        <!--<item>ajouter/modifier <code>cssFile</code> pour lier une feuille CSS personnalisée</item>-->
+                        <item>relancez la transformation et comparez avec la sortie précédente</item>
+                    </list>
+                    <p>De nombreux autres paramètres sont accessibles et permettent de rapidement adapter la sortie : (joindre un fichier css avec <code>cssFile</code>, numéroter les paragraphes <code>numberParagraphs</code>, gérer le sommaire, etc.)</p>
+                    <p>Le code des <emph>Stylesheets</emph> est modularisé pour faciliter les réutilisations. Le dossier <code>commons</code> par exemple contient les fichiers communs à toutes les transformations.</p>
+                </div>
+                <div type="slide">
+                    <head>Les profiles</head>
+                    <p>Les <emph>profiles</emph> correspondent aux profils de transformations. C’est dans ce répertoire que ce trouvent les scénarios de transformation par défaut, et c’est à cet emplacement qu’on déployer des profils de transformation personnalisés</p>
+                </div>
+                <div type="slide">
+                    <head>Exercice 05 - Créer un profil personnalisé</head>
+                    <list>
+                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
+                        <item>créer un dossier <code>perso</code> dans le répertoire : <code>profiles/</code></item>
+                        <item>y copier le dossier <code>xhtml</code> qui se trouve dans <code>profiles/default</code> dans le répertoire : <code>profiles/</code></item>
+                        <item>Créer un scénario de transformation à partir du fichier <code>profiles/perso/xhtml/to.xsl</code></item>
+                        <item>ajouter une règle de surcharge (p. ex. supprimer les éléments <code>pb</code> de la sortie)</item>
+                        <item>Appliquer le scénario de transformation</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>Chapitres absents</head>
+                    <p>Chapitres absents de cette introduction à XSLT :</p>
+                    <list>
+                        <item>les fonctions</item>
+                        <item>transformations XML vers XML</item>
+                        <item>transformations XML vers texte</item>
+                    </list>
+                </div>
+                <div type="slide">
+                    <head>The End</head>
+                    <p>&lt;merci/&gt;</p>
+                </div>
+            </div>
+        </body>
+    </text>
+</TEI>

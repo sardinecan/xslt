@@ -1,0 +1,41 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>Déroulé de la transformation</h1>
+         
+         <ul>
+            
+            <li>un arbre d’entrée est mis en mémoire à partir du document source</li>
+            
+            <li>le processeur XSLT lit les nœuds dans l’ordre (de haut en bas, de gauche à droite),
+               en commençant par l’élément racine</li>
+            
+            <li>pour chaque nœud, il vérifie si une règle (<em>template</em>) existe 
+               <ul>
+                  
+                  <li>si une règle existe, elle est appliquée</li>
+                  
+                  <li>si aucune ne correspond, il traite les nœuds fils,</li>
+                  
+                  <li>si aucun élément ne reste à traiter, il applique des instructions par défaut (imprime
+                     le contenu textuel)</li>
+                  
+                  <li>si plusieurs règles existent pour un même motif, des règles de priorité s’appliquent</li>
+               </ul>
+               </li>
+            
+            <li>l’ordre de déclaration des règles n’a pas d’importance</li>
+            
+            <li>un fichier de sortie est produit selon les règles de sérialisation indiquées dans
+               la feuille de transformation</li>
+            </ul>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>xsl:variable</h1>
+         
+         <p>Une variables est un espace mémoire <strong>nommé</strong> dont la valeur peut être de n’importe quel type :</p>
+         
+         <ul>
+            
+            <li>chaîne de caractères</li>
+            
+            <li>nombre</li>
+            
+            <li>ensemble de nœuds</li>
+            </ul>
+         
+         <pre><code class="language-xml">
+&lt;xsl:variable name="id" select="@xml:id"/&gt;
+
+&lt;xsl:variable name="var"&gt;Hello World&lt;/xsl:variable&gt;</code></pre>
+         
+         <p>Pour appeler une variable, on utilise une expression de la forme <code>$nomVariable</code>.</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="div"&gt;
+    &lt;xsl:variable name="id" select="@xml:id"/&gt;
+    &lt;section id="{ $id }"&gt;
+        &lt;xsl:apply-template/&gt;
+    &lt;/section&gt;
+&lt;/xsl:template&gt;</code></pre>
+         
+         <p>Les variables disposent d’une portée. Cela signifie qu’elles peuvent être appelées
+            uniquement dans le contexte dans lequel elles ont été définies.</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:variable name="msg" select="'Hello World!'"&gt;
+&lt;xsl:template match="div"&gt;
+    &lt;xsl:variable name="id" select="@xml:id"/&gt;
+    &lt;section id="{ $id }"&gt;
+        &lt;xsl:apply-template/&gt;
+    &lt;/section&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template match="p"&gt;
+&lt;!-- impossible ici d'appeler $id, mais on peut appeler $msg--&gt;
+&lt;xsl:value-of select="$msg"&gt;
+&lt;xsl:template&gt;</code></pre>
+         </main><script>hljs.highlightAll();</script></body>
+</html>

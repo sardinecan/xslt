@@ -1,0 +1,49 @@
+<!DOCTYPE html
+  PUBLIC "'-//W3C//DTD XHTML 1.0 Strict//EN'" "'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:file="http://expath.org/ns/file" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AHN 2026XSLT</title>
+      <link rel="stylesheet" href="../assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="//unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-latte.css" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">/**/</script></head>
+   <body>
+      <main class="slide ">
+         
+         <h1>xsl:if</h1>
+         
+         <pre><code class="language-xml">
+si booléen alors
+    instruction
+finsi</code></pre>
+         
+         <p>La machine examine le booléen :</p>
+         
+         <ul>
+            
+            <li>si la condition est remplie (le booléen a pour valeur <code>VRAI</code>), elle exécute les instructions ;</li>
+            
+            <li>si la condition n’est pas remplie (le booléen a pour valeur <code>FAUX</code>), elle passe directement aux instructions qui suivent <code>finsi</code>.</li>
+            </ul>
+         
+         <p>En XSLT, on dispose de l’élément <code>&lt;xsl:if/&gt;</code> :</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:if test="expression_booléenne"&gt;
+   &lt;!-- Mon modèle a appliquer si la condition est vraie --&gt;
+&lt;/xsl:if&gt;</code></pre>
+         
+         <p>Le modèle contenu dans <code>&lt;xsl:if/&gt;</code> est instancié <strong>si et seulement si</strong> l’expression XPath est vraie.</p>
+         
+         <pre><code class="language-xml">
+&lt;xsl:template match="p"&gt;
+    &lt;p&gt;
+        &lt;xsl:if test="@rend"&gt;
+            &lt;xsl:attribute name="class" select="@rend"/&gt;
+        &lt;/xsl:if&gt;
+        &lt;xsl:apply-templates/&gt;
+    &lt;/p&gt;
+&lt;/xsl:template&gt;</code></pre>
+         
+         <p>Si la balise <code>&lt;p/&gt;</code> dispose d’un attribut <code>@rend</code>, alors on ajoute en sortie un attribut <code>@class</code> ayant pour valeur celle de <code>@rend</code>.</p>
+         </main><script>hljs.highlightAll();</script></body>
+</html>
