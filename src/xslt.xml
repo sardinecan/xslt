@@ -106,6 +106,7 @@
                 <div type="slide">
                     <head>Exercice 01a - première transformation</head>
                     <list>
+                        <item>les exercices peuvent être récupérés sur Github &lt;<ref target="https://github.com/sardinecan/ahn2026-xslt/releases">sardinecan/ahn2026-xslt/releases</ref>&gt;</item>
                         <item>ouvrir OxygenXML</item>
                         <item>configurer un scénario de transformation (cf. <ref target="https://dh.obdurodon.org/transformation-scenario.html"><emph>transformation scenario</emph></ref>)</item>
                         <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
@@ -768,7 +769,7 @@ FINPOUR]]></egXML>
                     </list>
                 </div>
                 <div type="slide">
-                    <head>Exercice 03 - À vous créer un programme XSLT !</head>
+                    <head>Exercice 03 - À vous de créer un programme XSLT !</head>
                     <list>
                         <item>fichier à transformer : <code>03/jd116581.xml</code></item>
                     </list>
