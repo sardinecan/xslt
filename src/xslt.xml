@@ -7,6 +7,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
+                <title><!-- add a title here --></title>
                 <title type="subtitle">XSLT</title>
                 <author>Josselin Morvan (université de Rouen Normandie)</author>
             </titleStmt>
