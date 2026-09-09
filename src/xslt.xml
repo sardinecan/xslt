@@ -7,7 +7,6 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title>AHN 2026</title>
                 <title type="subtitle">XSLT</title>
                 <author>Josselin Morvan (université de Rouen Normandie)</author>
             </titleStmt>
@@ -24,7 +23,7 @@
             <div type="lesson">
                 <div type="slide" rend="titlePage">
                     <head>Initiation au langage de transformation XSLT</head>
-                    <p>AHN 2026 - Josselin Morvan (université de Rouen Normandie)</p>
+                    <p>Josselin Morvan (université de Rouen Normandie)</p>
                 </div>
                 <div type="slide">
                     <head>Contenu de la formation</head>
@@ -106,7 +105,7 @@
                 <div type="slide">
                     <head>Exercice 01a - première transformation</head>
                     <list>
-                        <item>les exercices peuvent être récupérés sur Github &lt;<ref target="https://github.com/sardinecan/ahn2026-xslt/releases">sardinecan/ahn2026-xslt/releases</ref>&gt;</item>
+                        <item>les exercices peuvent être récupérés sur Github &lt;<ref target="https://github.com/sardinecan/xslt/releases">sardinecan/xslt/releases</ref>&gt;</item>
                         <item>ouvrir OxygenXML</item>
                         <item>configurer un scénario de transformation (cf. <ref target="https://dh.obdurodon.org/transformation-scenario.html"><emph>transformation scenario</emph></ref>)</item>
                         <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
