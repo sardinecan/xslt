@@ -21,7 +21,7 @@
     <xsl:variable name="title" select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title"/>
     
     <xsl:template match="tei:TEI" mode="form">
-        <xsl:result-document href="../build/index.xhtml">
+        <xsl:result-document href="../../public/xslt/index.xhtml">
             <xsl:processing-instruction name="xml-stylesheet" >href="../assets/xsltforms/xsltforms.xsl" type="text/xsl"</xsl:processing-instruction>
             <html
                 xmlns="http://www.w3.org/1999/xhtml"
@@ -135,7 +135,7 @@
         <xsl:variable name="n">
             <xsl:number count="tei:div[@type='slide']" from="tei:body" level="any"/>
         </xsl:variable>
-        <xsl:result-document href="../build/slide{$n}.xhtml" method="xhtml" doctype-public="'-//W3C//DTD XHTML 1.0 Strict//EN'" doctype-system="'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
+        <xsl:result-document href="../../public/xslt/slide{$n}.xhtml" method="xhtml" doctype-public="'-//W3C//DTD XHTML 1.0 Strict//EN'" doctype-system="'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'">
             <html xmlns="http://www.w3.org/1999/xhtml">
                 <head>
                     <meta charset="utf-8"/>
@@ -160,7 +160,7 @@
         <xsl:variable name="n">
             <xsl:number count="tei:div[@type='slide']" from="tei:body" level="any"/>
         </xsl:variable>
-        <xsl:result-document href="../build/slide{$n}.xhtml">
+        <xsl:result-document href="../../public/xslt/slide{$n}.xhtml">
             <xsl:processing-instruction name="xml-stylesheet" >href="../assets/xsltforms/xsltforms.xsl" type="text/xsl"</xsl:processing-instruction>
             <html
                 xmlns="http://www.w3.org/1999/xhtml"
