@@ -29,9 +29,8 @@
                 <div type="slide">
                     <head>Contenu de la formation</head>
                     <list>
-                        <item>Initiation à XPath (matinée)</item>
                         <item>
-                            Initiation à XSLT (fin de matinée - après-midi)
+                            Initiation à XSLT
                             <list>
                                 <item>Programmation XSLT</item>
                                 <item>Les <emph>stylesheets</emph> de la TEI</item>
@@ -106,7 +105,7 @@
                 <div type="slide">
                     <head>Exercice 01a - première transformation</head>
                     <list>
-                        <item>les exercices peuvent être récupérés sur Github &lt;<ref target="https://github.com/sardinecan/xslt/releases">sardinecan/xslt/releases</ref>&gt;</item>
+                        <item>les exercices peuvent être récupérés sur UniversiTICE &lt;<ref target="https://universitice.univ-rouen.fr/course/section.php?id=299939">https://universitice.univ-rouen.fr/course/section.php?id=299939</ref>&gt;</item>
                         <item>ouvrir OxygenXML</item>
                         <item>configurer un scénario de transformation (cf. <ref target="https://dh.obdurodon.org/transformation-scenario.html"><emph>transformation scenario</emph></ref>)</item>
                         <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
@@ -192,7 +191,7 @@
                 </div>
                 <div type="slide">
                     <head>Les règles intégrées</head>
-                    <p>Quand aucun motif est trouvé pour un nœud, le processeur XSLT applique les règles suivantes :</p>
+                    <p>Quand aucun motif n’est trouvé pour un nœud, le processeur XSLT applique les règles suivantes :</p>
                     <list>
                         <item>pour les nœuds élément et document : il passe aux nœuds enfants</item>
                         <item>pour les nœuds texte et attribut : il sort la valeur textuelle</item>
@@ -231,7 +230,7 @@
                             </item>
                             <item><code>xsl:copy</code> copie le nœud</item>
                             <item><code>xsl:apply-templates</code> applique la même règle pour tous les nœuds fils</item>
-                            <item>elle adopte ainsi un fonctionnement recursif</item>
+                            <item>elle adopte ainsi un fonctionnement récursif</item>
                         </list>
                     </div>
                 </div>
@@ -269,17 +268,17 @@
                         <item>Ajoutez une règle afin que seuls les éléments <code>&lt;corr/&gt;</code> et <code>&lt;expan/&gt;</code> soient instanciés dans les éléments <code>&lt;choice/&gt;</code></item>
                         <item>Créez une règle pour supprimer les nœuds <code>&lt;del/&gt;</code> et <code>&lt;add type='testatorComment'/&gt;</code> en sortie</item>
                         <item>Créez une règle afin d’instancier les éléments <code>&lt;supplied/&gt;</code> entre crochets droits <code>[]</code></item>
-                        <item>À l’aide de la requête XPath <code>distinct-values(//hi/@rend)</code>, recherchez les valeurs uniques des attributs <code>@rend</code>. <lb/>Créez une règle pour chaque valeur de <code>hi/@rend</code> en utilisant un <code>test</code>.</item>
+                        <!-- <item>À l’aide de la requête XPath <code>distinct-values(//hi/@rend)</code>, recherchez les valeurs uniques des attributs <code>@rend</code>. <lb/>Créez une règle pour chaque valeur de <code>hi/@rend</code> en utilisant un <code>test</code>.</item> -->
                         <item>Ajoutez une règle pour les éléments <code>&lt;pb/&gt;</code> et créez une variable pour numéroter les changements de page. <lb/>En sortie, placez le numéro de page entre crochets <code>[]</code>.</item>
-                        <item>Ajoutez une règle pour les éléments <code>&lt;note/&gt;</code>. :<list>
-                            <item>créez une variable pour numéroter l’élément <code>note</code></item>
-                            <item>en sortie, placer le numéro de la note en exposant (balise HTML <code>&lt;sup/&gt;</code>)</item></list>
-                        </item>
-                        <item>Ajouter une règle modale pour les éléments <code>&lt;note/&gt;</code> (p. ex. <code>mode="footnote"</code>)<list>
+                        <!-- <item>Ajoutez une règle pour les éléments <code>&lt;note/&gt;</code>. :<list> -->
+                        <!--     <item>créez une variable pour numéroter l’élément <code>note</code></item> -->
+                        <!--     <item>en sortie, placer le numéro de la note en exposant (balise HTML <code>&lt;sup/&gt;</code>)</item></list> -->
+                        <!-- </item> -->
+                        <!--<item>Ajouter une règle modale pour les éléments <code>&lt;note/&gt;</code> (p. ex. <code>mode="footnote"</code>)<list>
                             <item>numérotez les notes comme ci-dessus</item>
                             <item>instanciez l’appel de note et le contenu de la note dans un élément <code>&lt;p/&gt;</code></item>
                             <item>modifiez le modèle de l’élément <code>&lt;div/&gt;</code> afin d’appliquer la règle modale</item></list>
-                        </item>
+                        </item>-->
                     </list>
                     <!--<p><hi rend="bold">templates nommées - xsl:result-document</hi></p>
                     <list>
@@ -311,14 +310,14 @@
                     <!--<p>On n’utilise généralement cette feuille XSLT de copie comme une base de modification</p>-->
                 </div>
                 <div type="slide">
-                    <head>xsl:apply-templates</head>    
+                    <head>xsl:apply-templates</head>
                     <p>La balise <code>&lt;xsl:apply-templates/&gt;</code> signifie « applique les autres règles modèles au contenu de l’élément courant ».</p>
                     <p>S’il n’y a pas de règle modèle dont le <hi rend="bold">motif</hi> correspond au(x) nœud(s), une règle modèle intégrée est utilisée : elle retourne la valeur textuelle du nœud.</p>
                     <p>Par défaut, l’instruction <code>&lt;xsl:apply-templates/&gt;</code> examine, dans l’ordre, les enfants du nœud contextuel. Cependant, il est possible de modifier ce comportement avec l’attribut <code>@select</code>. Il permet d’indiquer au processeur quel(s) autre(s) nœud(s) doi(ven)t être traité(s).</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
-<!-- fragment à transformer
+<!-\- fragment à transformer
 <ref target="www.w3.org/TR/xslt-30/">The <emph>XSLT</emph> Standard</ref>
--->
+-\->
 
 <xsl:template match="ref">
     <xsl:apply-templates select="emph"/>
@@ -333,9 +332,9 @@
                     <head><emph>literal data characters</emph></head>
                     <p>Aucune obligation cependant d’appliquer des <emph>templates</emph> :</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml"><![CDATA[
-<!-- fragment à transformer
+<!-\- fragment à transformer
 <ref target="www.w3.org/TR/xslt-30/">The <emph>XSLT</emph> Standard</ref>
--->
+-\->
 
 <xsl:template match="ref">
     XML
@@ -405,7 +404,7 @@
 </xsl:template>]]></egXML>
                     <p>résultat : <code>The XSLT Standard</code></p>
                 </div>
-                <div type="slide">
+                <!--<div type="slide">
                     <head>Les modes</head>
                     <p>Parfois, on a besoin d’appliquer plusieurs traitements à un même ensemble de nœuds.</p>
                     <p>Par exemple pour une sortie HTML, on peut souhaiter appliquer deux traitements pour les titres de chapitre :</p>
@@ -469,7 +468,7 @@
     </section>
 </xsl:template>
 <xsl:template match="p">
-<!-- impossible ici d'appeler $id, mais on peut appeler $msg-->
+<!-\- impossible ici d'appeler $id, mais on peut appeler $msg-\->
 <xsl:value-of select="$msg">
 <xsl:template>]]></egXML>
                 </div>
@@ -507,7 +506,7 @@ finsi]]></egXML>
                     <p>En XSLT, on dispose de l’élément <code>&lt;xsl:if/&gt;</code> :</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
 <![CDATA[<xsl:if test="expression_booléenne">
-   <!-- Mon modèle a appliquer si la condition est vraie -->
+   <!-\- Mon modèle a appliquer si la condition est vraie -\->
 </xsl:if>]]></egXML>
                     <p>Le modèle contenu dans <code>&lt;xsl:if/&gt;</code> est instancié <hi rend="bold">si et seulement si</hi> l’expression XPath est vraie.</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
@@ -659,7 +658,7 @@ FINPOUR]]></egXML>
                     <p>L’instruction <code>call-template</code> permet d’appeler un template par son nom :</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
 <![CDATA[<xsl:template name='monTemplate'>
-    <!-- modèle -->
+    <!-\- modèle -\->
 </xsl:template>
 <xsl:template match="/">
     <xsl:call-template name="monTemplate"/>
@@ -670,15 +669,15 @@ FINPOUR]]></egXML>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
 <![CDATA[<xsl:template match="/">
     <xsl:result-document href="index.html">
-        <html><!-- … --></html>
+        <html><!-\- … -\-></html>
     </xsl:result-document>
     <xsl:for-each select="./descendant::TEI">
         <xsl:result-document href="{./@xml:id}.html">
-            <html><!-- … --></html>
+            <html><!-\- … -\-></html>
         </xsl:result-document>
     </xsl:for-each>
     <xsl:result-document href="about.html">
-        <html><!-- … --></html>
+        <html><!-\- … -\-></html>
     </xsl:result-document>
 </xsl:template>]]></egXML>
                     <p>Toutefois, cette méthode est très verbeuse : p. ex. on répète les éléments de structure HTML alors qu’ils pourraient être partagés.</p>
@@ -775,61 +774,6 @@ FINPOUR]]></egXML>
                     </list>
                 </div>
                 <div type="slide">
-                    <head>Les stylesheets de la TEI</head>
-                    <p>Les Stylesheets de la TEI sont une bibliothèque XSLT/XSL-FO développée par Sebastian Rahtz et maintenue par le Consortium TEI pour convertir des documents TEI vers de nombreux formats (XHTML, LaTeX, PDF, EPUB, DOCX, etc.) et inversement !</p>
-                    <p><hi rend="bold">Intérêts</hi></p>
-                    <list>
-                        <item>gain de temps pour les transformations courantes</item>
-                        <item>bonne couverture des usages éditoriaux standards</item>
-                        <item>paramétrage riche sans devoir tout programmer</item>
-                    </list>
-                    <p><hi rend="bold">Limites</hi></p>
-                    <list>
-                        <item>tous les éléments/attributs TEI ne sont pas traités</item>
-                        <item>une personnalisation XSLT devient vite nécessaire pour les projets éditoriaux avancés</item>
-                    </list>
-                    <p>Les <emph>Stylesheets</emph> sont distribuées sous plusieurs formes :</p>
-                    <list>
-                        <item><ref target="https://github.com/TEIC/Stylesheets">Repo Github</ref>, pour une installation locale et une utilisation en ligne de commande</item>
-                        <item>Paquet Debian</item>
-                        <item>Framework OxygenXML (installé par défaut et accessible dans <code>oxygen XML editor/frameworks/tei/xml/tei/stylesheet</code>)</item>
-                    </list>
-                </div>
-                <div type="slide">
-                    <head>Exercice 04a - TEI P5 XHTML</head>
-                    <list>
-                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
-                        <item>scénario de transformation : <emph>TEI P5 XHTML</emph></item>
-                    </list>
-                </div>
-                <div type="slide">
-                    <head>Exercice 04b - TEI P5 XHTML avec paramètres</head>
-                    <list>
-                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
-                        <item>éditez le scénario précédent (Oxygen vous proposera de le dupliquer)</item>
-                        <item>dans <quote>Paramètres</quote>, modifiez <code>numberHeadings</code> pour désactiver numérotation des sections</item>
-                        <!--<item>ajouter/modifier <code>cssFile</code> pour lier une feuille CSS personnalisée</item>-->
-                        <item>relancez la transformation et comparez avec la sortie précédente</item>
-                    </list>
-                    <p>De nombreux autres paramètres sont accessibles et permettent de rapidement adapter la sortie : (joindre un fichier css avec <code>cssFile</code>, numéroter les paragraphes <code>numberParagraphs</code>, gérer le sommaire, etc.)</p>
-                    <p>Le code des <emph>Stylesheets</emph> est modularisé pour faciliter les réutilisations. Le dossier <code>commons</code> par exemple contient les fichiers communs à toutes les transformations.</p>
-                </div>
-                <div type="slide">
-                    <head>Les profiles</head>
-                    <p>Les <emph>profiles</emph> correspondent aux profils de transformations. C’est dans ce répertoire que ce trouvent les scénarios de transformation par défaut, et c’est à cet emplacement qu’on déployer des profils de transformation personnalisés</p>
-                </div>
-                <div type="slide">
-                    <head>Exercice 05 - Créer un profil personnalisé</head>
-                    <list>
-                        <item>fichier à transformer : <code>01/hugo1829_dernier-jour-condamne.xml</code></item>
-                        <item>créer un dossier <code>perso</code> dans le répertoire : <code>profiles/</code></item>
-                        <item>y copier le dossier <code>xhtml</code> qui se trouve dans <code>profiles/default</code> dans le répertoire : <code>profiles/</code></item>
-                        <item>Créer un scénario de transformation à partir du fichier <code>profiles/perso/xhtml/to.xsl</code></item>
-                        <item>ajouter une règle de surcharge (p. ex. supprimer les éléments <code>pb</code> de la sortie)</item>
-                        <item>Appliquer le scénario de transformation</item>
-                    </list>
-                </div>
-                <div type="slide">
                     <head>Chapitres absents</head>
                     <p>Chapitres absents de cette introduction à XSLT :</p>
                     <list>
@@ -853,7 +797,7 @@ FINPOUR]]></egXML>
                     <head>The End</head>
                     <p>&lt;merci/&gt;</p>
                 </div>
-            </div>
+-->            </div>
         </body>
     </text>
 </TEI>
