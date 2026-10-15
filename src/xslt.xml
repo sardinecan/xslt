@@ -74,7 +74,7 @@
                         <item>le processeur XSLT cherche les motifs dans un document XML donné en entrée</item>
                         <item>si un motif est trouvé, alors le processeur écrit le modèle de cette règle dans l’arbre de destination</item>
                         <item>en fin de processus, l'arbre de sortie est sérialisé dans un autre document XML ou dans un autre format (XML ou non)</item>
-                    </list>                    
+                    </list>
                 </div>
                 <div type="slide">
                     <head>Une première transformation</head>
@@ -330,7 +330,7 @@
                     <p>résultat : <code>The XSLT Standard</code></p>
                 </div>
                 <div type="slide">
-                    <head>Exercice 02 - XML vers (X)HTML</head>
+                    <head>Exercice 02a - XML vers (X)HTML</head>
                     <list>
                         <item>fichier à transformer : <code>02/will_AD95_0048.xml</code></item>
                         <item>feuille de transformation : <code>02/tei2html.xsl</code></item>
@@ -363,48 +363,9 @@
                         <item>Ajoutez une règle afin que seuls les éléments <code>&lt;corr/&gt;</code> et <code>&lt;expan/&gt;</code> soient instanciés dans les éléments <code>&lt;choice/&gt;</code></item>
                         <item>Créez une règle pour supprimer les nœuds <code>&lt;del/&gt;</code> et <code>&lt;add type='testatorComment'/&gt;</code> en sortie</item>
                         <item>Créez une règle afin d’instancier les éléments <code>&lt;supplied/&gt;</code> entre crochets droits <code>[]</code></item>
-                        <!-- <item>À l’aide de la requête XPath <code>distinct-values(//hi/@rend)</code>, recherchez les valeurs uniques des attributs <code>@rend</code>. <lb/>Créez une règle pour chaque valeur de <code>hi/@rend</code> en utilisant un <code>test</code>.</item> -->
-                        <item>Ajoutez une règle pour les éléments <code>&lt;pb/&gt;</code> et créez une variable pour numéroter les changements de page. <lb/>En sortie, placez le numéro de page entre crochets <code>[]</code>.</item>
-                        <!-- <item>Ajoutez une règle pour les éléments <code>&lt;note/&gt;</code>. :<list> -->
-                        <!--     <item>créez une variable pour numéroter l’élément <code>note</code></item> -->
-                        <!--     <item>en sortie, placer le numéro de la note en exposant (balise HTML <code>&lt;sup/&gt;</code>)</item></list> -->
-                        <!-- </item> -->
-                        <!--<item>Ajouter une règle modale pour les éléments <code>&lt;note/&gt;</code> (p. ex. <code>mode="footnote"</code>)<list>
-                            <item>numérotez les notes comme ci-dessus</item>
-                            <item>instanciez l’appel de note et le contenu de la note dans un élément <code>&lt;p/&gt;</code></item>
-                            <item>modifiez le modèle de l’élément <code>&lt;div/&gt;</code> afin d’appliquer la règle modale</item></list>
-                        </item>-->
                     </list>
-                    <!--<p><hi rend="bold">templates nommées - xsl:result-document</hi></p>
-                    <list>
-                        <item>Créez un template <emph>nommé</emph> <code>html</code> contenant une structure HTML classique (<code>html&gt;head+body</code>) <list>
-                            <item>dans l’élément <code>&lt;head/&gt;</code>, placez un élément <code>&lt;meta charset="utf-8"/&gt;</code> pour l’encodage des caractères</item>
-                            <item>l’élément HTML <code>title</code> doit prendre la valeur du titre principal dans le document TEI (voir règle déjà existante pour le <code>teiHeader</code>). <emph>NB. Pensez à utiliser un chemin absolu</emph></item>
-                            <item>dans le corps de la page HTML ajoutez une navigation composée d’une liste de 3 liens : <list>
-                                <item>Accueil : <code>index.html</code></item>
-                                <item>Testament : <code>testament.html</code></item>
-                                <item>Codicille : <code>codicille.html</code></item></list>
-                            </item>
-                            <item>supprimez les règles déjà existantes pour les éléments <code>TEI</code>, <code>teiHeader</code> et <code>body</code></item></list>
-                        </item>
-                        <item>ajoutez un paramètre <code>content</code> au template <code>html</code> ; <lb/>appliquez ce paramètre dans le <code>&lt;body/&gt;</code></item>
-                        <item>Modifiez règle du nœud document : <list>
-                            <item>supprimez le modèle existant ;</item>
-                            <item>ajoutez une première instruction <code>result-document</code> afin de créer un fichier <code>index.html</code> <list>
-                                <item>appelez le template <code>html</code> en lui passant comme paramètre <code>content</code> l’élément <code>abstract</code></item></list>
-                            </item>
-                            <item>effectuez une transformation (pensez à indiquer à Oxygen un dossier de sortie)</item>
-                        </list>
-                        </item>
-                        <item>Répétez l’opération pour le testament (<code>testament.html</code> ; <code>content</code>  : <code>&lt;div type="will"/&gt;</code>) et le codicille (<code>condicille.html</code> ; <code>content</code> : <code>&lt;div type="codicil"</code>)</item>
-                    </list>
-                    <list>
-                        <item>En utilisant des tests et boucles simplifiez et automatisez le traitements des éléments TEI <code>div</code>, afin de ne pas avoir à répéter manuellement les instructions <code>result-document</code>.</item>
-                        <item>Faites de même avec la navigation.</item>
-                    </list>-->
-                    <!--<p>On n’utilise généralement cette feuille XSLT de copie comme une base de modification</p>-->
                 </div>
-                <!--<div type="slide">
+                <div type="slide">
                     <head>Les modes</head>
                     <p>Parfois, on a besoin d’appliquer plusieurs traitements à un même ensemble de nœuds.</p>
                     <p>Par exemple pour une sortie HTML, on peut souhaiter appliquer deux traitements pour les titres de chapitre :</p>
@@ -468,8 +429,8 @@
     </section>
 </xsl:template>
 <xsl:template match="p">
-<!-\- impossible ici d'appeler $id, mais on peut appeler $msg-\->
-<xsl:value-of select="$msg">
+    <!-- impossible ici d'appeler $id, mais on peut appeler $msg-->
+    <xsl:value-of select="$msg">
 <xsl:template>]]></egXML>
                 </div>
                 <div type="slide">
@@ -506,7 +467,7 @@ finsi]]></egXML>
                     <p>En XSLT, on dispose de l’élément <code>&lt;xsl:if/&gt;</code> :</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
 <![CDATA[<xsl:if test="expression_booléenne">
-   <!-\- Mon modèle a appliquer si la condition est vraie -\->
+   <!-- Mon modèle a appliquer si la condition est vraie -->
 </xsl:if>]]></egXML>
                     <p>Le modèle contenu dans <code>&lt;xsl:if/&gt;</code> est instancié <hi rend="bold">si et seulement si</hi> l’expression XPath est vraie.</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
@@ -531,7 +492,7 @@ sinon
 finsi]]></egXML>
                     <list>
                         <item>si le booléen a pour valeur <code>VRAI</code>, l’instruction 1 est exécutée ;</item>
-                        <item>si la booléen a pour valeur <code>FAUX</code>, l’instruction 2 est exécutée.</item>
+                        <item>si le booléen a pour valeur <code>FAUX</code>, l’instruction 2 est exécutée.</item>
                     </list>
                     <p>En réalité, la première forme correspond au cas de figure où l’une des deux <quote>branches</quote> est vide. Plutôt que d’indiquer à la machine de ne rien faire, on n’écrit rien.</p>
                     <p>Pour effectuer des tests complets en XSLT, on utilise l’élément <code>&lt;xsl:choose/&gt;</code>.</p>
@@ -558,6 +519,30 @@ finsi]]></egXML>
 </xsl:template>]]></egXML>
                 </div>
                 <div type="slide">
+                    <head>Exercice 02b - XML vers (X)HTML (suite)</head>
+                    <list>
+                        <item>fichier à transformer : <code>03/will_AD95_0048.xml</code></item>
+                        <item>feuille de transformation : <code>03/tei2html.xsl</code></item>
+                    </list>
+                    <p><hi rend="bold">Contenus</hi></p>
+                    <list>
+                        <item>Ajoutez une règle pour les éléments <code>&lt;pb/&gt;</code> et créez une variable pour numéroter les changements de page. <lb/>En sortie, placez le numéro de page entre crochets <code>[]</code>.</item>
+                        <item>À l’aide de la requête XPath <code>distinct-values(//hi/@rend)</code>, recherchez les valeurs uniques des attributs <code>@rend</code>. <lb/>Créez une règle pour chaque valeur de <code>hi/@rend</code> en utilisant un <code>test</code>.</item>
+                         <item>
+                             Ajoutez une règle pour les éléments <code>&lt;note/&gt;</code>. :
+                             <list> 
+                                <item>créez une variable pour numéroter l’élément <code>note</code></item> 
+                                <item>en sortie, placer le numéro de la note en exposant (balise HTML <code>&lt;sup/&gt;</code>)</item>
+                             </list>
+                         </item> 
+                        <item>Ajouter une règle modale pour les éléments <code>&lt;note/&gt;</code> (p. ex. <code>mode="footnote"</code>)<list>
+                            <item>numérotez les notes comme ci-dessus</item>
+                            <item>instanciez l’appel de note et le contenu de la note dans un élément <code>&lt;p/&gt;</code></item>
+                            <item>modifiez le modèle de l’élément <code>&lt;div/&gt;</code> afin d’appliquer la règle modale</item></list>
+                        </item>
+                    </list>
+                </div>
+                <!--<div type="slide">
                     <head>Les boucles</head>
                     <p>Les boucles font également partie des structures élémentaires en algorithmique. Elles sont d’ailleurs propre à la programmation et n’existent pas ailleurs.</p>
                     <p>Elles permettent d’exécuter un ensemble d’instructions de manière répétée. On parle aussi de <hi rend="bold">structures itératives</hi>.</p>
@@ -617,6 +602,7 @@ FINPOUR]]></egXML>
     </li>
 </xsl:template>]]></egXML>
                 </div>
+                
                 <div type="slide">
                     <head>Espace de nom XPath par défaut</head>
                     <p>Pour déclarer un espace de nom XPath par défaut, on utilise l’attribut <code>@xpath-default-namespace</code>. Il n’est alors pas nécessaire de préfixer les expressions XPath avec <code>*:</code> (ou <code>tei:</code> si utilisation de <code>xmlns:tei</code>)</p>
@@ -736,6 +722,47 @@ FINPOUR]]></egXML>
 </xsl:template>]]></egXML>
                 </div>
                 <div type="slide">
+                    <head>Exercice 02c - XML vers (X)HTML (suite)</head>
+                    <list>
+                        <item>fichier à transformer : <code>04/will_AD95_0048.xml</code></item>
+                        <item>feuille de transformation : <code>04/tei2html.xsl</code></item>
+                    </list>
+                    <p><hi rend="bold">templates nommées - xsl:result-document</hi></p>
+                    <list>
+                        <item>Créez un template <emph>nommé</emph> <code>html</code> contenant une structure HTML classique (<code>html&gt;head+body</code>)
+                            <list>
+                                <item>dans l’élément <code>&lt;head/&gt;</code>, placez un élément <code>&lt;meta charset="utf-8"/&gt;</code> pour l’encodage des caractères</item>
+                                <item>l’élément HTML <code>title</code> doit prendre la valeur du titre principal dans le document TEI (voir règle déjà existante pour le <code>teiHeader</code>). <emph>NB. Pensez à utiliser un chemin absolu</emph></item>
+                                <item>dans le corps de la page HTML ajoutez une navigation composée d’une liste de 3 liens :
+                                    <list>
+                                        <item>Accueil : <code>index.html</code></item>
+                                        <item>Testament : <code>testament.html</code></item>
+                                        <item>Codicille : <code>codicille.html</code></item>
+                                    </list>
+                                </item>
+                                <item>supprimez les règles déjà existantes pour les éléments <code>TEI</code>, <code>teiHeader</code> et <code>body</code></item>
+                            </list>
+                        </item>
+                        <item>ajoutez un paramètre <code>content</code> au template <code>html</code> ; <lb/>appliquez ce paramètre dans le <code>&lt;body/&gt;</code></item>
+                        <item>Modifiez règle du nœud document :
+                            <list>
+                                <item>supprimez le modèle existant ;</item>
+                                <item>ajoutez une première instruction <code>result-document</code> afin de créer un fichier <code>index.html</code>
+                                    <list>
+                                        <item>appelez le template <code>html</code> en lui passant comme paramètre <code>content</code> l’élément <code>abstract</code></item>
+                                    </list>
+                                </item>
+                                <item>effectuez une transformation (pensez à indiquer à Oxygen un dossier de sortie)</item>
+                            </list>
+                        </item>
+                        <item>Répétez l’opération pour le testament (<code>testament.html</code> ; <code>content</code>  : <code>&lt;div type="will"/&gt;</code>) et le codicille (<code>condicille.html</code> ; <code>content</code> : <code>&lt;div type="codicil"</code>)</item>
+                    </list>
+                    <list>
+                        <item>En utilisant des tests et boucles simplifiez et automatisez le traitements des éléments TEI <code>div</code>, afin de ne pas avoir à répéter manuellement les instructions <code>result-document</code>.</item>
+                        <item>Faites de même avec la navigation.</item>
+                    </list>
+                </div>
+                <div type="slide">
                     <head>xsl:sort</head>
                     <p>L’instruction <code>&lt;xsl:sort/&gt;</code> permet de trier des nœuds afin, par exemple de les ordonner alphabétiquement.</p>
                     <p>Il s’utilise comme enfant des éléments <code>&lt;xsl:apply-templates/&gt;</code> et <code>&lt;xsl:for-each/&gt;</code>.</p>
@@ -796,8 +823,8 @@ FINPOUR]]></egXML>
                 <div type="slide">
                     <head>The End</head>
                     <p>&lt;merci/&gt;</p>
-                </div>
--->            </div>
+                </div>-->
+            </div>
         </body>
     </text>
 </TEI>
