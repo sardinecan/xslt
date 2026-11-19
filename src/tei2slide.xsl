@@ -41,6 +41,7 @@
                     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" charset="utf8"/>
                     <title><xsl:apply-templates select="$title"></xsl:apply-templates></title>
                     <link rel="stylesheet" href="../assets/css/main.css" type="text/css"/>
+                    <script src="../assets/xsltforms/xslt-polyfill.min.js"></script>
                     <model xmlns="http://www.w3.org/2002/xforms">
                         <instance id="tutorial">
                             <tutorial>
@@ -178,6 +179,7 @@
                 <head>
                     <meta charset="utf-8"/>
                     <title><xsl:apply-templates select="$title"/></title>
+                    <script src="../assets/xsltforms/xslt-polyfill.min.js"></script>
                     <link rel="stylesheet" href="../assets/css/main.css" type="text/css"/>
                     <link rel="stylesheet" href="../assets/css/tei.css" type="text/css"/>
                     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark-reasonable.min.css" integrity="sha512-RwXJS3k4Z0IK6TGoL3pgQlA9g2THFhKL7z9TYWdAI8u6xK0AUuMWieJuWgTRayywC9A94ifUj1RzjDa1NIlUIg==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
