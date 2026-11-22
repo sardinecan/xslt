@@ -521,7 +521,7 @@ finsi]]></egXML>
                 <div type="slide">
                     <head>Exercice 02b - XML vers (X)HTML (suite)</head>
                     <list>
-                        <item>fichier à transformer : <code>03/will_AD95_0048.xml</code></item>
+                        <item>fichier à transformer : <code>03/will_AN_0440.xml</code></item>
                         <item>feuille de transformation : <code>03/tei2html.xsl</code></item>
                     </list>
                     <p><hi rend="bold">Contenus</hi></p>
@@ -542,7 +542,7 @@ finsi]]></egXML>
                         </item>
                     </list>
                 </div>
-                <!--<div type="slide">
+                <div type="slide">
                     <head>Les boucles</head>
                     <p>Les boucles font également partie des structures élémentaires en algorithmique. Elles sont d’ailleurs propre à la programmation et n’existent pas ailleurs.</p>
                     <p>Elles permettent d’exécuter un ensemble d’instructions de manière répétée. On parle aussi de <hi rend="bold">structures itératives</hi>.</p>
@@ -644,7 +644,7 @@ FINPOUR]]></egXML>
                     <p>L’instruction <code>call-template</code> permet d’appeler un template par son nom :</p>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
 <![CDATA[<xsl:template name='monTemplate'>
-    <!-\- modèle -\->
+    <!-- modèle -->
 </xsl:template>
 <xsl:template match="/">
     <xsl:call-template name="monTemplate"/>
@@ -655,15 +655,15 @@ FINPOUR]]></egXML>
                     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="xml">
 <![CDATA[<xsl:template match="/">
     <xsl:result-document href="index.html">
-        <html><!-\- … -\-></html>
+        <html><!-- … --></html>
     </xsl:result-document>
     <xsl:for-each select="./descendant::TEI">
         <xsl:result-document href="{./@xml:id}.html">
-            <html><!-\- … -\-></html>
+            <html><!-- … --></html>
         </xsl:result-document>
     </xsl:for-each>
     <xsl:result-document href="about.html">
-        <html><!-\- … -\-></html>
+        <html><!-- … --></html>
     </xsl:result-document>
 </xsl:template>]]></egXML>
                     <p>Toutefois, cette méthode est très verbeuse : p. ex. on répète les éléments de structure HTML alors qu’ils pourraient être partagés.</p>
@@ -721,7 +721,7 @@ FINPOUR]]></egXML>
     </xsl:copy>
 </xsl:template>]]></egXML>
                 </div>
-                <div type="slide">
+                <!--<div type="slide">
                     <head>Exercice 02c - XML vers (X)HTML (suite)</head>
                     <list>
                         <item>fichier à transformer : <code>04/will_AD95_0048.xml</code></item>
