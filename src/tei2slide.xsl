@@ -12,7 +12,7 @@
     version="3.0">
     
     <xsl:output method="xml" indent="yes" omit-xml-declaration="true"/>
-    <xsl:param name="outputDir" select="'../../public/xslt'"/>
+    <xsl:param name="outputDir" select="'../../build/xslt'"/>
     <xsl:param name="assetsDir" select="'../assets'"/>
 
     <xsl:template match="/">
